@@ -1,15 +1,469 @@
 <!DOCTYPE html>
-<html lang="et">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RideGo</title>
+
+    <title>RideGo — трансфер из Таллинна к границе с Россией: Нарва, Койдула, Лухамаа</title>
+    <meta
+      name="description"
+      content="Комфортный трансфер из Таллинна до погранпереходов Нарва, Койдула и Лухамаа. Фиксированная цена от 130 €, Toyota Corolla, круглосуточно. Заказ в WhatsApp и Telegram."
+    />
+    <link rel="canonical" href="https://ridego.ee/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:url" content="https://ridego.ee/" />
+    <meta property="og:title" content="RideGo — трансфер Таллинн → граница с Россией" />
+    <meta
+      property="og:description"
+      content="Нарва, Койдула, Лухамаа. Фиксированная цена, комфортный автомобиль, заказ в один клик через WhatsApp или Telegram."
+    />
+
+    <meta name="theme-color" content="#0b0f19" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/styles.css" />
+
+    <!-- Ставим метку до отрисовки: анимации появления включаются только с JS -->
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
   </head>
+
   <body>
-    <main>
-      <h1>RideGo</h1>
-      <p>Sait on peagi valmis.</p>
+    <a class="skip-link" href="#routes">Перейти к направлениям</a>
+
+    <header class="header" id="header">
+      <div class="container header__inner">
+        <a class="logo" href="#top" aria-label="RideGo — на главную">
+          <span class="logo__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 15.5h18M6 15.5v2.2M18 15.5v2.2M4.2 15.5l1.9-6.1A2.5 2.5 0 0 1 8.5 7.6h7a2.5 2.5 0 0 1 2.4 1.8l1.9 6.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </span>
+          <span class="logo__text">Ride<span>Go</span></span>
+        </a>
+
+        <nav class="nav" aria-label="Основная навигация">
+          <a href="#routes">Направления</a>
+          <a href="#car">Автомобиль</a>
+          <a href="#how">Как заказать</a>
+          <a href="#faq">Вопросы</a>
+        </nav>
+
+        <button class="btn btn--accent btn--sm header__cta" data-order type="button">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.9l1.5 3.7-2 1.3a11 11 0 0 0 5 5l1.3-2 3.7 1.5v2.9a1.6 1.6 0 0 1-1.8 1.6A15.6 15.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5Z" fill="currentColor"/></svg>
+          <span>+372 5387 4330</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ================= HERO ================= -->
+      <section class="hero">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__copy">
+            <p class="eyebrow reveal">Трансфер Эстония → Россия</p>
+
+            <h1 class="hero__title reveal" data-delay="1">
+              Из Таллинна <br />
+              <span class="grad">к границе с Россией</span>
+            </h1>
+
+            <p class="hero__lead reveal" data-delay="2">
+              Довезём до погранпереходов Нарва, Койдула и Лухамаа. Фиксированная цена без
+              доплат за багаж и ожидание, встреча в аэропорту, порту или по вашему адресу.
+              Работаем круглосуточно.
+            </p>
+
+            <div class="hero__actions reveal" data-delay="3">
+              <button class="btn btn--accent btn--lg" data-order type="button">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.9l1.5 3.7-2 1.3a11 11 0 0 0 5 5l1.3-2 3.7 1.5v2.9a1.6 1.6 0 0 1-1.8 1.6A15.6 15.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5Z" fill="currentColor"/></svg>
+                <span>+372 5387 4330</span>
+              </button>
+              <p class="hero__hint">
+                Нажмите — и напишите в <strong>WhatsApp</strong> или <strong>Telegram</strong>
+              </p>
+            </div>
+
+            <ul class="hero__trust reveal" data-delay="4">
+              <li><strong>от 130 €</strong><span>фиксированная цена</span></li>
+              <li><strong>24/7</strong><span>любое время суток</span></li>
+              <li><strong>4 места</strong><span>Toyota Corolla</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual reveal" data-delay="3" aria-hidden="true">
+            <svg class="car" viewBox="0 0 640 300" role="img">
+              <defs>
+                <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#f8fafc" />
+                  <stop offset="0.55" stop-color="#cbd5e1" />
+                  <stop offset="1" stop-color="#8fa0b6" />
+                </linearGradient>
+                <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#1e293b" />
+                  <stop offset="1" stop-color="#475569" />
+                </linearGradient>
+                <radialGradient id="shadowGrad">
+                  <stop offset="0" stop-color="#000" stop-opacity="0.55" />
+                  <stop offset="1" stop-color="#000" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+
+              <!-- дорога -->
+              <ellipse cx="320" cy="252" rx="250" ry="22" fill="url(#shadowGrad)" />
+              <g class="road">
+                <line x1="-60" y1="268" x2="30" y2="268" />
+                <line x1="90" y1="268" x2="180" y2="268" />
+                <line x1="240" y1="268" x2="330" y2="268" />
+                <line x1="390" y1="268" x2="480" y2="268" />
+                <line x1="540" y1="268" x2="630" y2="268" />
+              </g>
+
+              <g class="car__body">
+                <!-- кузов -->
+                <path
+                  d="M42 196c-4-14 2-26 14-30l52-16 44-38c9-8 21-12 33-12h94c14 0 27 6 36 17l30 36 92 12c22 3 38 13 45 27 4 8 5 16 4 24H42Z"
+                  fill="url(#bodyGrad)"
+                />
+                <!-- линия окон -->
+                <path
+                  d="M150 112c8-7 18-11 29-11h84c12 0 24 5 32 15l24 30H120Z"
+                  fill="url(#glassGrad)"
+                />
+                <path d="M196 101v45" stroke="#0b0f19" stroke-width="4" opacity="0.6" />
+                <!-- подштамповка -->
+                <path d="M52 170h520" stroke="#64748b" stroke-width="2" opacity="0.5" />
+                <!-- фара и фонарь -->
+                <path class="lamp" d="M44 158h34a10 10 0 0 1 0 20H46Z" fill="#fef3c7" />
+                <path d="M596 160h-30a9 9 0 0 0 0 18h32Z" fill="#f87171" />
+                <!-- ручки -->
+                <rect x="182" y="162" width="26" height="5" rx="2.5" fill="#94a3b8" />
+                <rect x="286" y="162" width="26" height="5" rx="2.5" fill="#94a3b8" />
+              </g>
+
+              <!-- колёса -->
+              <g class="wheel" style="--cx: 148px; --cy: 206px">
+                <circle cx="148" cy="206" r="46" fill="#0f172a" />
+                <circle cx="148" cy="206" r="27" fill="#cbd5e1" />
+                <g stroke="#0f172a" stroke-width="5" stroke-linecap="round">
+                  <path d="M148 186v40M128 206h40M134 192l28 28M162 192l-28 28" />
+                </g>
+              </g>
+              <g class="wheel" style="--cx: 470px; --cy: 206px">
+                <circle cx="470" cy="206" r="46" fill="#0f172a" />
+                <circle cx="470" cy="206" r="27" fill="#cbd5e1" />
+                <g stroke="#0f172a" stroke-width="5" stroke-linecap="round">
+                  <path d="M470 186v40M450 206h40M456 192l28 28M484 192l-28 28" />
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= НАПРАВЛЕНИЯ ================= -->
+      <!-- Цены, время и расстояния взяты с estoniatransfer.ee. Меняются здесь. -->
+      <section class="section" id="routes">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Направления и цены</p>
+            <h2>Три погранперехода, одна фиксированная цена</h2>
+            <p class="section__lead">
+              Стоимость указана за автомобиль целиком, а не за пассажира. Цена не меняется
+              из-за пробок, ночного времени или количества чемоданов.
+            </p>
+          </header>
+
+          <div class="routes">
+            <article class="route reveal" data-delay="1">
+              <div class="route__top">
+                <h3 class="route__title"><span>Таллинн</span><em aria-hidden="true">→</em><span>Нарва</span></h3>
+                <p class="route__price">130 <span>€</span></p>
+              </div>
+              <dl class="route__meta">
+                <div><dt>В пути</dt><dd>2 ч 30 мин</dd></div>
+                <div><dt>Расстояние</dt><dd>210 км</dd></div>
+              </dl>
+              <p class="route__note">
+                Самый популярный маршрут. Погранпереход в центре города, пешая очередь
+                обычно короче автомобильной.
+              </p>
+              <button class="btn btn--ghost btn--full" data-order data-route="Таллинн — Нарва" type="button">
+                Заказать
+              </button>
+            </article>
+
+            <article class="route route--featured reveal" data-delay="2">
+              <p class="route__badge">Часто выбирают</p>
+              <div class="route__top">
+                <h3 class="route__title"><span>Таллинн</span><em aria-hidden="true">→</em><span>Койдула</span></h3>
+                <p class="route__price">160 <span>€</span></p>
+              </div>
+              <dl class="route__meta">
+                <div><dt>В пути</dt><dd>3 ч 5 мин</dd></div>
+                <div><dt>Расстояние</dt><dd>270 км</dd></div>
+              </dl>
+              <p class="route__note">
+                Удобно для поездок в направлении Пскова и Санкт-Петербурга. Довозим прямо
+                к пункту пропуска.
+              </p>
+              <button class="btn btn--accent btn--full" data-order data-route="Таллинн — Койдула" type="button">
+                Заказать
+              </button>
+            </article>
+
+            <article class="route reveal" data-delay="3">
+              <div class="route__top">
+                <h3 class="route__title"><span>Таллинн</span><em aria-hidden="true">→</em><span>Лухамаа</span></h3>
+                <p class="route__price">160 <span>€</span></p>
+              </div>
+              <dl class="route__meta">
+                <div><dt>В пути</dt><dd>3 ч 10 мин</dd></div>
+                <div><dt>Расстояние</dt><dd>280 км</dd></div>
+              </dl>
+              <p class="route__note">
+                Южное направление. Подходит тем, кто едет дальше на Пыталово и в сторону
+                Белоруссии.
+              </p>
+              <button class="btn btn--ghost btn--full" data-order data-route="Таллинн — Лухамаа" type="button">
+                Заказать
+              </button>
+            </article>
+          </div>
+
+          <p class="routes__extra reveal">
+            Нужен другой маршрут — Санкт-Петербург, Псков, Тарту, поездка из аэропорта или
+            обратная дорога? <button class="link" data-order data-route="Другое направление" type="button">Напишите нам</button>, рассчитаем стоимость.
+          </p>
+        </div>
+      </section>
+
+      <!-- ================= АВТОМОБИЛЬ ================= -->
+      <section class="section section--alt" id="car">
+        <div class="container car-layout">
+          <div class="car-layout__media reveal">
+            <!-- Фото машины: положи файл public/images/corolla.jpg -->
+            <!-- Пока файла нет, автоматически показывается иллюстрация. -->
+            <div class="car-photo" role="img" aria-label="Toyota Corolla E210"></div>
+            <p class="car-photo__caption">Toyota Corolla E210</p>
+          </div>
+
+          <div class="car-layout__copy">
+            <p class="eyebrow reveal">Автомобиль</p>
+            <h2 class="reveal" data-delay="1">Toyota Corolla E210 — тихо, ровно, без сюрпризов</h2>
+            <p class="reveal" data-delay="2">
+              Одна из самых надёжных машин в своём классе: экономичный гибрид, мягкая
+              подвеска и достаточно места, чтобы три часа до границы прошли незаметно.
+              Салон некурящий, летом работает кондиционер, зимой — подогрев.
+            </p>
+
+            <!-- ПРОВЕРЬ: количество мест, багаж, наличие детского кресла -->
+            <ul class="specs reveal" data-delay="3">
+              <li><span class="specs__k">Пассажиров</span><span class="specs__v">до 4</span></li>
+              <li><span class="specs__k">Багаж</span><span class="specs__v">2 чемодана + ручная кладь</span></li>
+              <li><span class="specs__k">Климат</span><span class="specs__v">кондиционер, подогрев</span></li>
+              <li><span class="specs__k">Детское кресло</span><span class="specs__v">по запросу</span></li>
+              <li><span class="specs__k">Салон</span><span class="specs__v">некурящий</span></li>
+              <li><span class="specs__k">Зарядка</span><span class="specs__v">USB в дороге</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= КАК ЗАКАЗАТЬ ================= -->
+      <section class="section" id="how">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Как заказать</p>
+            <h2>Четыре шага и минута времени</h2>
+          </header>
+
+          <ol class="steps">
+            <li class="step reveal" data-delay="1">
+              <span class="step__num">01</span>
+              <h3>Нажмите на номер</h3>
+              <p>Откроется выбор: WhatsApp, Telegram или обычный звонок — как вам удобнее.</p>
+            </li>
+            <li class="step reveal" data-delay="2">
+              <span class="step__num">02</span>
+              <h3>Опишите поездку</h3>
+              <p>Дата, время, адрес выезда, направление и сколько вас человек с багажом.</p>
+            </li>
+            <li class="step reveal" data-delay="3">
+              <span class="step__num">03</span>
+              <h3>Получите подтверждение</h3>
+              <p>Называем окончательную цену и время выезда. Никаких скрытых доплат.</p>
+            </li>
+            <li class="step reveal" data-delay="4">
+              <span class="step__num">04</span>
+              <h3>Садитесь и едьте</h3>
+              <p>Водитель подъезжает к указанному адресу и довозит до погранперехода.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ================= ПРЕИМУЩЕСТВА ================= -->
+      <section class="section section--alt" id="why">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Почему мы</p>
+            <h2>Что входит в цену</h2>
+          </header>
+
+          <div class="perks">
+            <article class="perk reveal" data-delay="1">
+              <h3>Фиксированная стоимость</h3>
+              <p>Цену называем до поездки. Пробки, ожидание на погрузке и ночной выезд её не меняют.</p>
+            </article>
+            <article class="perk reveal" data-delay="2">
+              <h3>Знаем погранпереходы</h3>
+              <p>Подскажем, где очередь короче и как устроен проход в Нарве, Койдуле и Лухамаа.</p>
+            </article>
+            <article class="perk reveal" data-delay="3">
+              <h3>Встреча где нужно</h3>
+              <p>Аэропорт, порт, автовокзал, отель или ваш подъезд — подъезжаем к точке.</p>
+            </article>
+            <article class="perk reveal" data-delay="4">
+              <h3>Круглосуточно</h3>
+              <p>Ранние выезды к утреннему открытию границы — обычная для нас работа.</p>
+            </article>
+            <article class="perk reveal" data-delay="5">
+              <h3>Помощь с багажом</h3>
+              <p>Загрузим и выгрузим чемоданы. Дополнительных сборов за багаж нет.</p>
+            </article>
+            <article class="perk reveal" data-delay="6">
+              <h3>Свой автомобиль</h3>
+              <p>Toyota Corolla в исправном состоянии, чистый салон и опрятный водитель.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FAQ ================= -->
+      <section class="section" id="faq">
+        <div class="container container--narrow">
+          <header class="section__head reveal">
+            <p class="eyebrow">Вопросы</p>
+            <h2>Коротко о главном</h2>
+          </header>
+
+          <!-- ПРОВЕРЬ каждый ответ ниже: это мои формулировки, поправь под свои правила -->
+          <div class="faq">
+            <details class="faq__item reveal" data-delay="1">
+              <summary>Вы перевозите через саму границу?</summary>
+              <p>
+                Мы довозим до пункта пропуска — Нарва, Койдула или Лухамаа. Границу вы
+                проходите самостоятельно. Встречу на другой стороне можно обсудить отдельно.
+              </p>
+            </details>
+            <details class="faq__item reveal" data-delay="2">
+              <summary>Как оплатить поездку?</summary>
+              <p>Наличными водителю или банковским переводом. Об удобном способе договоримся заранее.</p>
+            </details>
+            <details class="faq__item reveal" data-delay="3">
+              <summary>Цена за человека или за машину?</summary>
+              <p>
+                За автомобиль целиком. Поедете один или вчетвером — стоимость направления
+                одна и та же.
+              </p>
+            </details>
+            <details class="faq__item reveal" data-delay="4">
+              <summary>Можно с детьми и животными?</summary>
+              <p>
+                С детьми — да, детское кресло предоставим по запросу. О поездке с животным
+                предупредите заранее.
+              </p>
+            </details>
+            <details class="faq__item reveal" data-delay="5">
+              <summary>За сколько нужно бронировать?</summary>
+              <p>
+                Лучше за день, но часто получается выехать и в тот же день. Напишите —
+                проверим свободное время.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= CTA ================= -->
+      <section class="cta">
+        <div class="container cta__inner reveal">
+          <h2>Готовы выехать?</h2>
+          <p>Напишите в WhatsApp или Telegram — ответим и подтвердим время поездки.</p>
+          <div class="cta__actions">
+            <a class="btn btn--wa btn--lg" href="https://wa.me/37253874330" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.2 1.2-1.9 1.2-.6 0-2.4-.3-4.6-2.3-2.2-2-2.7-3.7-2.8-4.3-.1-.7.4-1.7 1-1.9.3-.1.7 0 .9.3l.9 1.6c.1.3.1.6-.1.8l-.5.6c.5 1 1.5 2 2.5 2.5l.6-.5c.2-.2.5-.2.8-.1l1.6.8c.3.2.4.6.3.9Z" fill="currentColor"/></svg>
+              WhatsApp
+            </a>
+            <a class="btn btn--tg btn--lg" href="https://t.me/+37253874330" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.9 4.3 18.8 19c-.2 1-.9 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.3.3-.5.5-1 .5l.4-4.9 8.4-7.6c.4-.3-.1-.5-.6-.2L6.9 12.9 2.6 11.5c-.9-.3-.9-.9.2-1.4l18-6.9c.8-.3 1.4.2 1.1 1.1Z" fill="currentColor"/></svg>
+              Telegram
+            </a>
+            <a class="btn btn--ghost btn--lg" href="tel:+37253874330">Позвонить</a>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <span class="logo__text">Ride<span>Go</span></span>
+          <p>Трансфер из Таллинна к погранпереходам Нарва, Койдула и Лухамаа.</p>
+        </div>
+        <div class="footer__col">
+          <h3>Контакты</h3>
+          <a href="tel:+37253874330">+372 5387 4330</a>
+          <a href="https://wa.me/37253874330" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://t.me/+37253874330" target="_blank" rel="noopener">Telegram</a>
+        </div>
+        <div class="footer__col">
+          <h3>Направления</h3>
+          <a href="#routes">Таллинн — Нарва</a>
+          <a href="#routes">Таллинн — Койдула</a>
+          <a href="#routes">Таллинн — Лухамаа</a>
+        </div>
+      </div>
+      <div class="container footer__bottom">
+        <p>© <span data-year>2026</span> RideGo · ridego.ee</p>
+        <p>Эстония, Таллинн</p>
+      </div>
+    </footer>
+
+    <!-- Плавающая кнопка на мобильных -->
+    <button class="fab" data-order type="button" aria-label="Заказать трансфер">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.9l1.5 3.7-2 1.3a11 11 0 0 0 5 5l1.3-2 3.7 1.5v2.9a1.6 1.6 0 0 1-1.8 1.6A15.6 15.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5Z" fill="currentColor"/></svg>
+      <span>Заказать</span>
+    </button>
+
+    <!-- ================= МОДАЛКА ЗАКАЗА ================= -->
+    <dialog class="modal" id="order-dialog" aria-labelledby="order-title">
+      <div class="modal__card">
+        <button class="modal__close" data-close type="button" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+
+        <p class="modal__eyebrow">Заказ трансфера</p>
+        <h2 class="modal__title" id="order-title">+372 5387 4330</h2>
+        <p class="modal__route" data-route-label hidden></p>
+        <p class="modal__text">Выберите, как вам удобнее связаться.</p>
+
+        <div class="modal__actions">
+          <a class="btn btn--wa btn--lg btn--full" data-wa href="https://wa.me/37253874330" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.2 1.2-1.9 1.2-.6 0-2.4-.3-4.6-2.3-2.2-2-2.7-3.7-2.8-4.3-.1-.7.4-1.7 1-1.9.3-.1.7 0 .9.3l.9 1.6c.1.3.1.6-.1.8l-.5.6c.5 1 1.5 2 2.5 2.5l.6-.5c.2-.2.5-.2.8-.1l1.6.8c.3.2.4.6.3.9Z" fill="currentColor"/></svg>
+            Написать в WhatsApp
+          </a>
+          <a class="btn btn--tg btn--lg btn--full" href="https://t.me/+37253874330" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.9 4.3 18.8 19c-.2 1-.9 1.3-1.7.8l-4.6-3.4-2.2 2.1c-.3.3-.5.5-1 .5l.4-4.9 8.4-7.6c.4-.3-.1-.5-.6-.2L6.9 12.9 2.6 11.5c-.9-.3-.9-.9.2-1.4l18-6.9c.8-.3 1.4.2 1.1 1.1Z" fill="currentColor"/></svg>
+            Написать в Telegram
+          </a>
+          <a class="btn btn--ghost btn--lg btn--full" href="tel:+37253874330">Позвонить</a>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="/script.js" defer></script>
   </body>
 </html>

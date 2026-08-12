@@ -1,22 +1,53 @@
 # ridego.ee
 
-Статический сайт. Всё, что лежит в `public/`, автоматически уезжает на хостинг zone.ee
-при каждом пуше в ветку `main` (см. [.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
+Одностраничный сайт услуги трансфера из Таллинна к погранпереходам с Россией
+(Нарва, Койдула, Лухамаа). Статика без сборки: всё, что лежит в `public/`,
+автоматически уезжает на хостинг zone.ee при каждом пуше в `main`
+(см. [.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
 
 ```
-public/          <- содержимое сайта = корень htdocs на хостинге
-.github/workflows/deploy.yml
+public/
+  index.html                    вся страница
+  styles.css                    оформление
+  script.js                     анимации появления, модалка заказа
+  favicon.svg                   иконка в табе
+  images/
+    car-illustration.svg        рисунок машины (заглушка вместо фото)
+    corolla.jpg                 <- ПОЛОЖИ СЮДА реальное фото (файла пока нет)
 ```
 
 Локально смотреть: открой `public/index.html` в браузере, либо `npx serve public`.
 
-## Как работает деплой
+## Что где менять
 
-`push` в `main` → GitHub Actions → `rsync -rlvz --delete public/ → htdocs/` по SSH.
+| Что | Где |
+|---|---|
+| Цены, время, расстояния | `public/index.html`, секция `<section id="routes">` |
+| Номер телефона | `public/index.html` (несколько мест) + `PHONE` в начале `public/script.js` |
+| Тексты FAQ | `public/index.html`, секция `<section id="faq">` |
+| Характеристики авто | `public/index.html`, список `<ul class="specs">` |
+| Цвета | `public/styles.css`, блок `:root` — `--accent`, `--bg` и остальные |
 
-`--delete` означает, что **хостинг становится точной копией `public/`**: файлы, которых
-нет в репозитории, на сервере удаляются. Исключения: `.well-known/` (ACME/Let's Encrypt)
-и `.git*`.
+В HTML стоят комментарии `<!-- ПРОВЕРЬ ... -->` в местах, где я написал текст
+по своему усмотрению: условия оплаты, багаж, детское кресло, порядок на границе.
+
+### Фото автомобиля
+
+Положи фото в `public/images/corolla.jpg` — оно появится само, ничего править не нужно.
+Пока файла нет, на его месте показывается SVG-рисунок: в CSS фото стоит верхним слоем
+фона, а иллюстрация — нижним, так что отсутствующий файл просто открывает вид на рисунок.
+
+Хорошее фото: горизонтальное, пропорции ближе к 4:3, ширина 1600 px и больше,
+сжатое до ~300 КБ.
+
+### Заказ через WhatsApp / Telegram
+
+Кнопки с номером открывают окно с выбором: WhatsApp, Telegram или звонок.
+При заказе с карточки направления в WhatsApp подставляется готовый текст
+(«Хочу заказать трансфер по направлению Таллинн — Нарва»).
+
+Telegram-ссылка сделана по номеру: `https://t.me/+37253874330`. Если у аккаунта есть
+короткое имя, надёжнее заменить её на `https://t.me/имя_аккаунта`.
 
 ## Данные хостинга
 
@@ -31,16 +62,24 @@ public/          <- содержимое сайта = корень htdocs на �
 | IP для A-записи | `217.146.69.26` |
 | Временный домен | `ridego-ee.vserver.zonevs.eu` — сайт виден по нему, пока нет DNS |
 
+## Как работает деплой
+
+`push` в `main` → GitHub Actions → `rsync -rlvz --delete public/ → htdocs/` по SSH.
+
+`--delete` означает, что **хостинг становится точной копией `public/`**: файлы, которых
+нет в репозитории, на сервере удаляются. Исключения: `.well-known/` (ACME/Let's Encrypt)
+и `.git*`.
+
 ## Разовая настройка
 
 ### 1. SSH-ключ в панели Zone
 
-Пара ключей создана локально: `~/.ssh/ridego_deploy` (приватный) и `~/.ssh/ridego_deploy.pub`.
+Пара ключей лежит локально: `~/.ssh/ridego_deploy` (приватный) и `~/.ssh/ridego_deploy.pub`.
 
 1. [my.zone.eu](https://my.zone.eu) → веб-хостинг `ridego.ee` → **SSH** → публичные ключи.
 2. Вставь содержимое `ridego_deploy.pub`, сохрани. Ключ появляется на сервере в течение ~10 минут.
-3. Если включён IP Whitelist — нужно разрешить доступ отовсюду, т.к. GitHub Actions
-   работает с меняющихся IP.
+3. Если включён IP Whitelist — нужно разрешить доступ отовсюду: GitHub Actions работает
+   с меняющихся IP.
 
 Проверка (должно вывести `CONNECTED`):
 
@@ -50,7 +89,7 @@ ssh -i $env:USERPROFILE\.ssh\ridego_deploy virt150152@ridego-ee.vserver.zonevs.e
 
 ### 2. Secrets в GitHub
 
-`Settings → Secrets and variables → Actions → New repository secret`
+`Settings → Secrets and variables → Actions`
 
 | Имя | Значение |
 |---|---|
