@@ -1,0 +1,62 @@
+# ============================================================
+# RideGo — настройки Apache на zone.ee
+# Только директивы, разрешённые в .htaccess на общем хостинге.
+# Всё, что зависит от модулей, обёрнуто в <IfModule> — если модуля нет,
+# блок просто игнорируется, а не роняет сайт в 500.
+# ============================================================
+
+AddDefaultCharset utf-8
+ErrorDocument 404 /404.html
+
+# ---------- www → без www ----------
+# Каталог и сертификат на хостинге зовутся www.ridego.ee, но каноническим
+# адресом в <link rel="canonical"> выбран ridego.ee — сводим сюда же.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.ridego\.ee$ [NC]
+  RewriteRule ^(.*)$ https://ridego.ee/$1 [R=301,L]
+</IfModule>
+
+# ---------- сжатие ----------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/json image/svg+xml
+</IfModule>
+
+# ---------- кеширование ----------
+# HTML не кешируем: деплой перезаписывает файлы, посетитель должен видеть свежую
+# страницу. Статику кешируем на месяц — имена файлов стабильные, но и правки в
+# styles.css случаются, поэтому не год.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # ---------- заголовки безопасности ----------
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Страница не грузит ничего извне, поэтому default-src 'self'.
+  # 'unsafe-inline' нужен из-за встроенного <script> в <head> (метка js) и
+  # инлайновых style у колёс в SVG. Внешние скрипты всё равно заблокированы.
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'none'; frame-ancestors 'self'; base-uri 'self'"
+
+  # Сертификат Let's Encrypt выпущен 12.08.2026 на ridego.ee и www.ridego.ee,
+  # оба имени отдают валидный HTTPS — HSTS включён.
+  # Выключать обратно нельзя мгновенно: браузеры помнят max-age. Если понадобится
+  # уйти с HTTPS, сначала поставь max-age=0 и дай пользователям зайти на сайт.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>

@@ -11,17 +11,29 @@
     />
     <link rel="canonical" href="https://ridego.ee/" />
 
+    <!-- Превью ссылки в WhatsApp и Telegram — основной канал заказа,
+         поэтому og:image обязателен и адрес в нём должен быть абсолютным. -->
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
+    <meta property="og:site_name" content="RideGo" />
     <meta property="og:url" content="https://ridego.ee/" />
     <meta property="og:title" content="RideGo — трансфер Таллинн → граница с Россией" />
     <meta
       property="og:description"
       content="Нарва, Койдула, Лухамаа. Фиксированная цена, комфортный автомобиль, заказ в один клик через WhatsApp или Telegram."
     />
+    <meta property="og:image" content="https://ridego.ee/images/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="RideGo — трансфер из Таллинна к границе с Россией, от 130 €" />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <meta name="theme-color" content="#0b0f19" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <!-- .ico для старых браузеров и краулеров, которые просят именно /favicon.ico -->
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
     <link rel="stylesheet" href="styles.css" />
 
     <!-- Ставим метку до отрисовки: анимации появления включаются только с JS -->
@@ -465,5 +477,125 @@
     </dialog>
 
     <script src="script.js" defer></script>
+
+    <!-- Разметка для поисковиков. Держим в согласии с текстом страницы:
+         меняешь цены или ответы FAQ — поправь и здесь. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "TaxiService",
+            "@id": "https://ridego.ee/#service",
+            "name": "RideGo",
+            "description": "Трансфер из Таллинна к погранпереходам Нарва, Койдула и Лухамаа. Фиксированная цена за автомобиль, круглосуточно.",
+            "url": "https://ridego.ee/",
+            "image": "https://ridego.ee/images/og.png",
+            "telephone": "+37253874330",
+            "priceRange": "130-160 €",
+            "currenciesAccepted": "EUR",
+            "paymentAccepted": "Наличные, банковский перевод",
+            "areaServed": [
+              { "@type": "City", "name": "Таллинн" },
+              { "@type": "City", "name": "Нарва" },
+              { "@type": "Place", "name": "Койдула" },
+              { "@type": "Place", "name": "Лухамаа" }
+            ],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Таллинн",
+              "addressCountry": "EE"
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "00:00",
+              "closes": "23:59"
+            },
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Направления",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "name": "Таллинн — Нарва",
+                  "price": "130",
+                  "priceCurrency": "EUR",
+                  "description": "210 км, около 2 ч 30 мин. Цена за автомобиль."
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Таллинн — Койдула",
+                  "price": "160",
+                  "priceCurrency": "EUR",
+                  "description": "270 км, около 3 ч 5 мин. Цена за автомобиль."
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Таллинн — Лухамаа",
+                  "price": "160",
+                  "priceCurrency": "EUR",
+                  "description": "280 км, около 3 ч 10 мин. Цена за автомобиль."
+                }
+              ]
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://ridego.ee/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Вы перевозите через саму границу?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Мы довозим до пункта пропуска — Нарва, Койдула или Лухамаа. Границу вы проходите самостоятельно. Встречу на другой стороне можно обсудить отдельно."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Как оплатить поездку?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Наличными водителю или банковским переводом. Об удобном способе договоримся заранее."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Цена за человека или за машину?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "За автомобиль целиком. Поедете один или вчетвером — стоимость направления одна и та же."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Можно с детьми и животными?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "С детьми — да, детское кресло предоставим по запросу. О поездке с животным предупредите заранее."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "За сколько нужно бронировать?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Лучше за день, но часто получается выехать и в тот же день. Напишите — проверим свободное время."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
   </body>
 </html>
