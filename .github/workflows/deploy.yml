@@ -14,9 +14,36 @@ jobs:
     name: rsync public/ -> htdocs
     runs-on: ubuntu-latest
 
+    env:
+      SITE_URL: https://ridego.ee/
+      SITE_MARKER: RideGo # строка, которая обязана быть в отданном HTML
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # Раньше деплой падал на шаге rsync без внятной причины. Теперь каждая
+      # предпосылка проверяется отдельно и сообщает, что именно не так.
+      - name: Check secrets
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.ZONE_SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.ZONE_SSH_HOST }}
+          SSH_USER: ${{ secrets.ZONE_SSH_USER }}
+          REMOTE_PATH: ${{ secrets.ZONE_REMOTE_PATH }}
+        run: |
+          missing=""
+          for name in SSH_PRIVATE_KEY SSH_HOST SSH_USER REMOTE_PATH; do
+            eval "value=\${$name}"
+            [ -n "$value" ] || missing="$missing ZONE_$name"
+          done
+          if [ -n "$missing" ]; then
+            echo "::error::Не заданы секреты:$missing — Settings → Secrets and variables → Actions"
+            exit 1
+          fi
+          case "$SSH_PRIVATE_KEY" in
+            *"BEGIN OPENSSH PRIVATE KEY"*|*"BEGIN RSA PRIVATE KEY"*) ;;
+            *) echo "::error::ZONE_SSH_PRIVATE_KEY не похож на приватный ключ: нужно всё содержимое файла, включая строки BEGIN/END"; exit 1 ;;
+          esac
 
       - name: Prepare SSH key and known_hosts
         env:
@@ -28,7 +55,29 @@ jobs:
           chmod 700 ~/.ssh
           printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+          # Пустой known_hosts = StrictHostKeyChecking=yes отклонит хост,
+          # поэтому ловим это здесь, а не внутри rsync.
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" > ~/.ssh/known_hosts 2> ~/keyscan.err || true
+          if ! grep -q '[^[:space:]]' ~/.ssh/known_hosts; then
+            echo "::error::ssh-keyscan не получил ключ хоста $SSH_HOST:$SSH_PORT. Обычно это закрытый порт или IP Whitelist в панели Zone (SSH) — раннеру GitHub нужен доступ с любого адреса."
+            cat ~/keyscan.err || true
+            exit 1
+          fi
+
+      - name: Probe SSH access
+        env:
+          SSH_HOST: ${{ secrets.ZONE_SSH_HOST }}
+          SSH_USER: ${{ secrets.ZONE_SSH_USER }}
+          SSH_PORT: ${{ vars.ZONE_SSH_PORT || '22' }}
+          REMOTE_PATH: ${{ secrets.ZONE_REMOTE_PATH }}
+        run: |
+          if ! ssh -p "$SSH_PORT" -i ~/.ssh/deploy_key \
+                   -o StrictHostKeyChecking=yes -o BatchMode=yes -o ConnectTimeout=20 \
+                   "$SSH_USER@$SSH_HOST" "test -d '$REMOTE_PATH' && test -w '$REMOTE_PATH' && command -v rsync >/dev/null"; then
+            echo "::error::Не удалось войти по SSH или каталог $REMOTE_PATH недоступен для записи. Проверь: публичный ключ добавлен в панели Zone, IP Whitelist выключен, ZONE_REMOTE_PATH указывает на htdocs."
+            exit 1
+          fi
 
       - name: Deploy
         env:
@@ -38,11 +87,38 @@ jobs:
           REMOTE_PATH: ${{ secrets.ZONE_REMOTE_PATH }}
         run: |
           rsync -rlvz --delete \
-            --omit-dir-times --no-perms \
+            --omit-dir-times --no-perms --chmod=D755,F644 \
             --exclude='.well-known/' \
             --exclude='.git*' \
-            -e "ssh -p $SSH_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
+            -e "ssh -p $SSH_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes" \
             ./public/ "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"
+
+      # Проверяем не «rsync не упал», а что сайт реально отдаётся.
+      - name: Smoke check
+        run: |
+          # -k: пока на домене самоподписанный сертификат Zone. Валидность
+          # проверяем отдельным шагом ниже, чтобы это не блокировало деплой.
+          code=$(curl -sS -k -L --max-time 30 -o body.html -w '%{http_code}' "$SITE_URL" || echo 000)
+          echo "HTTP $code для $SITE_URL"
+          if [ "$code" != "200" ]; then
+            echo "::error::Сайт ответил $code вместо 200. 403 обычно значит, что в htdocs нет index.html."
+            head -40 body.html || true
+            exit 1
+          fi
+          if ! grep -qi "$SITE_MARKER" body.html; then
+            echo "::error::В ответе нет строки '$SITE_MARKER' — отдаётся не наш index.html."
+            head -40 body.html || true
+            exit 1
+          fi
+          echo "Страница отдаётся и содержит '$SITE_MARKER'."
+
+      - name: Check TLS certificate
+        run: |
+          if curl -sSI --max-time 30 "$SITE_URL" > /dev/null 2>&1; then
+            echo "Сертификат валиден."
+          else
+            echo "::warning::TLS-сертификат не проходит проверку. Включи Let's Encrypt в панели Zone (нужна DNS-запись www)."
+          fi
 
       - name: Clean up key
         if: always()
