@@ -8,3 +8,7 @@ Thumbs.db
 id_*
 *_deploy
 *_deploy.pub
+
+# локальные настройки Claude Code: туда попадают команды целиком,
+# вместе с токенами из них
+.claude/settings.local.json
