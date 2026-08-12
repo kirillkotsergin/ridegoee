@@ -1,0 +1,49 @@
+name: Deploy to zone.ee
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # allows a manual run from the Actions tab
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false # never cancel a deploy midway; queue it instead
+
+jobs:
+  deploy:
+    name: rsync public/ -> htdocs
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare SSH key and known_hosts
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.ZONE_SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.ZONE_SSH_HOST }}
+          SSH_PORT: ${{ vars.ZONE_SSH_PORT || '22' }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" -H "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy
+        env:
+          SSH_HOST: ${{ secrets.ZONE_SSH_HOST }}
+          SSH_USER: ${{ secrets.ZONE_SSH_USER }}
+          SSH_PORT: ${{ vars.ZONE_SSH_PORT || '22' }}
+          REMOTE_PATH: ${{ secrets.ZONE_REMOTE_PATH }}
+        run: |
+          rsync -rlvz --delete \
+            --omit-dir-times --no-perms \
+            --exclude='.well-known/' \
+            --exclude='.git*' \
+            -e "ssh -p $SSH_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes" \
+            ./public/ "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"
+
+      - name: Clean up key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key

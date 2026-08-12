@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+
+# ключи никогда не должны попасть в репозиторий
+*.pem
+id_*
+*_deploy
+*_deploy.pub
