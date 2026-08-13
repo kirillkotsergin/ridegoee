@@ -1468,6 +1468,60 @@ ul.perks li::before {
   text-decoration: underline;
 }
 
+/* Список гостиниц: название, адрес, короткое описание. */
+.stay {
+  display: grid;
+  gap: 16px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stay li {
+  padding-left: 14px;
+  border-left: 2px solid var(--line-strong);
+}
+
+.stay strong {
+  display: block;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.stay__addr {
+  display: block;
+  margin-top: 3px;
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.stay p {
+  margin-top: 7px !important;
+  font-size: 0.91rem !important;
+}
+
+/* Подсказка-врезка под блоком. */
+.tip {
+  margin-top: 22px;
+  padding: 15px 18px;
+  border: 1px solid rgba(255, 181, 36, 0.22);
+  border-radius: var(--radius);
+  background: rgba(255, 181, 36, 0.08);
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+.tip strong {
+  color: var(--text);
+}
+.tip a {
+  color: var(--accent);
+  font-weight: 600;
+}
+.tip a:hover {
+  text-decoration: underline;
+}
+
 /* Источники: ссылки на первоисточники — им доверяют и люди, и ИИ. */
 .sources {
   display: grid;
