@@ -723,8 +723,12 @@
       <!-- ================= КАРТА =================
            Google Maps через iframe с output=embed — без ключа API и без
            внешних скриптов. Грузится только по клику: до этого страница
-           не обращается к Google. Для iframe в .htaccess открыт frame-src. -->
-      <section class="section" id="map">
+           не обращается к Google.
+           Адрес maps.google.com/maps?q=…&output=embed отдаёт 301 на
+           www.google.com/maps/embed?pb=… — поэтому в CSP (.htaccess)
+           во frame-src перечислены оба хоста. Проверено 13.08.2026:
+           итоговый ответ 200 и без X-Frame-Options, то есть встраивается. -->
+      <section class="section section--alt" id="map">
         <div class="container container--narrow">
           <header class="section__head reveal">
             <p class="eyebrow">Карта</p>
