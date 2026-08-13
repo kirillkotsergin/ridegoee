@@ -123,6 +123,53 @@
     sync();
   });
 
+  /* ---------- карта пунктов пропуска ----------
+     Google Maps в iframe вставляем только после клика: пока посетитель
+     не попросил карту, страница не делает ни одного внешнего запроса.
+     Без JS в блоке остаются кнопки и ссылки «открыть отдельным окном». */
+
+  document.querySelectorAll("[data-map]").forEach(function (map) {
+    var frame = map.querySelector("[data-map-frame]");
+    var tabs = map.querySelectorAll("[data-map-src]");
+    if (!frame || !tabs.length) return;
+
+    var iframe = null;
+
+    function show(tab) {
+      tabs.forEach(function (item) {
+        var active = item === tab;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      if (!iframe) {
+        iframe = document.createElement("iframe");
+        iframe.className = "map__iframe";
+        iframe.setAttribute("loading", "lazy");
+        iframe.setAttribute("referrerpolicy", "no-referrer-when-downgrade");
+        iframe.setAttribute("allowfullscreen", "");
+        frame.innerHTML = "";
+        frame.appendChild(iframe);
+      }
+
+      iframe.setAttribute("title", tab.getAttribute("data-map-title") || "Карта");
+      iframe.setAttribute("src", tab.getAttribute("data-map-src"));
+    }
+
+    var loader = map.querySelector("[data-map-load]");
+    if (loader) {
+      loader.addEventListener("click", function () {
+        show(tabs[0]);
+      });
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        show(tab);
+      });
+    });
+  });
+
   /* ---------- фото крупнее (водитель) ----------
      Открывает <dialog id="photo-dialog">. Escape закрывает сам dialog,
      фокус возвращаем на кружок с фото. */

@@ -36,7 +36,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <!-- Пути к ассетам абсолютные: страница лежит в подкаталоге -->
-    <link rel="stylesheet" href="/styles.css?v=14" />
+    <link rel="stylesheet" href="/styles.css?v=15" />
 
     <script>
       document.documentElement.classList.add("js");
@@ -720,6 +720,79 @@
         </div>
       </section>
 
+      <!-- ================= КАРТА =================
+           Google Maps через iframe с output=embed — без ключа API и без
+           внешних скриптов. Грузится только по клику: до этого страница
+           не обращается к Google. Для iframe в .htaccess открыт frame-src. -->
+      <section class="section" id="map">
+        <div class="container container--narrow">
+          <header class="section__head reveal">
+            <p class="eyebrow">Карта</p>
+            <h2>Где находятся пункты пропуска</h2>
+            <p class="section__lead">
+              Выберите переход — карта откроется ниже. Она подгружается только по
+              нажатию: до этого страница не обращается к Google и не ставит его cookie.
+            </p>
+          </header>
+
+          <div class="map reveal" data-map>
+            <div class="map__tabs">
+              <button
+                class="map__tab is-active"
+                type="button"
+                aria-pressed="true"
+                data-map-src="https://maps.google.com/maps?q=Rahu%204a,%20Narva,%20Estonia&amp;z=14&amp;hl=ru&amp;output=embed"
+                data-map-title="Пункт пропуска Нарва на карте Google"
+              >
+                Нарва
+              </button>
+              <button
+                class="map__tab"
+                type="button"
+                aria-pressed="false"
+                data-map-src="https://maps.google.com/maps?q=57.83833,27.59444&amp;z=13&amp;hl=ru&amp;output=embed"
+                data-map-title="Пункт пропуска Койдула на карте Google"
+              >
+                Койдула
+              </button>
+              <button
+                class="map__tab"
+                type="button"
+                aria-pressed="false"
+                data-map-src="https://maps.google.com/maps?q=57.625,27.36139&amp;z=13&amp;hl=ru&amp;output=embed"
+                data-map-title="Пункт пропуска Лухамаа на карте Google"
+              >
+                Лухамаа
+              </button>
+            </div>
+
+            <div class="map__frame" data-map-frame>
+              <button class="map__load" type="button" data-map-load>
+                <span class="map__load-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+                    <path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 1 1 13 0c0 5-6.5 11-6.5 11Z" />
+                    <circle cx="12" cy="10" r="2.4" />
+                  </svg>
+                </span>
+                <span class="map__load-text">Показать карту</span>
+                <span class="map__load-note">Откроется Google Maps</span>
+              </button>
+            </div>
+
+            <p class="map__links">
+              Открыть отдельным окном:
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=Rahu+4a,+Narva,+Estonia" target="_blank" rel="noopener">Нарва</a>
+              ·
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=57.83833,27.59444" target="_blank" rel="noopener">Койдула</a>
+              ·
+              <a href="https://www.google.com/maps/search/?api=1&amp;query=57.625,27.36139" target="_blank" rel="noopener">Лухамаа</a>
+              · очередь и зоны ожидания —
+              <a href="https://www.estonianborder.eu/" target="_blank" rel="noopener">GoSwift</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       <!-- ================= CTA ================= -->
       <section class="cta">
         <div class="container cta__inner reveal">
@@ -778,7 +851,7 @@
       </div>
     </footer>
 
-    <script src="/script.js?v=9" defer></script>
+    <script src="/script.js?v=10" defer></script>
 
     <!-- Разметка для поисковиков и ИИ: Article с датой обновления, FAQPage
          с теми же вопросами, что на странице, и хлебные крошки. -->

@@ -1522,6 +1522,110 @@ ul.perks li::before {
   text-decoration: underline;
 }
 
+/* ---------- карта пунктов пропуска ---------- */
+
+.map__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.map__tab {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease),
+    color 0.25s var(--ease);
+}
+.map__tab:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+.map__tab.is-active {
+  border-color: rgba(255, 181, 36, 0.5);
+  background: rgba(255, 181, 36, 0.12);
+  color: var(--accent);
+}
+
+/* Высота фиксированная, а не по пропорции: в узком контейнере 16/9 даёт
+   слишком высокую карту, а на телефоне — слишком низкую. */
+.map__frame {
+  position: relative;
+  height: clamp(240px, 40vw, 340px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.map__iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  /* карта светлая, на тёмном фоне слегка притушим, чтобы не слепила */
+  filter: saturate(0.9) brightness(0.94);
+}
+
+/* заглушка до загрузки: она же кнопка */
+.map__load {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border: 0;
+  background: radial-gradient(circle at 50% 40%, rgba(255, 181, 36, 0.09), transparent 70%);
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.map__load:hover {
+  background-color: var(--surface-2);
+  color: var(--text);
+}
+
+.map__load-icon svg {
+  width: 34px;
+  height: 34px;
+  color: var(--accent);
+}
+.map__load-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.map__load-note {
+  font-size: 0.84rem;
+  color: var(--dim);
+}
+
+.map__links {
+  margin-top: 14px;
+  color: var(--dim);
+  font-size: 0.88rem;
+}
+.map__links a {
+  color: var(--muted);
+  font-weight: 600;
+  border-bottom: 1px solid var(--line-strong);
+}
+.map__links a:hover {
+  color: var(--accent);
+  border-bottom-color: currentColor;
+}
+
 /* Источники: ссылки на первоисточники — им доверяют и люди, и ИИ. */
 .sources {
   display: grid;
