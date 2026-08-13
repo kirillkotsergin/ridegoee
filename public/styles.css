@@ -1787,6 +1787,30 @@ ul.perks li::before {
   font-weight: 600;
 }
 
+/* ---------- фото машины на страницах маршрутов ---------- */
+/* На главной фото едут слайдером, на посадочных хватает одного кадра:
+   меньше кода и быстрее загрузка. Подпись под фото — заодно место для
+   осмысленного текста рядом с картинкой. */
+
+.route-photo {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.route-photo img {
+  width: 100%;
+  height: auto;
+}
+
+.route-photo figcaption {
+  padding: 13px 18px;
+  color: var(--dim);
+  font-size: 0.87rem;
+}
+
 /* ---------- плавающая кнопка ---------- */
 
 .fab {
