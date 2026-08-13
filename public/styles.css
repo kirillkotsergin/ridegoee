@@ -1294,6 +1294,200 @@ ul.perks li::before {
   white-space: nowrap;
 }
 
+/* ---------- страница-гид «как добраться до границы» ---------- */
+
+/* Короткий ответ в начале страницы: его цитируют ИИ-поисковики и
+   показывает Google в сниппете, поэтому он стоит выше всего остального. */
+.answer {
+  margin-top: 26px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.answer p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+.answer p + p {
+  margin-top: 12px;
+}
+.answer strong {
+  color: var(--text);
+}
+.answer__note {
+  font-size: 0.94rem !important;
+}
+
+/* Таблица сравнения. На узком экране прокручивается по горизонтали,
+   ломать её в колонки смысла нет — теряется сама суть сравнения. */
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.cmp {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  text-align: left;
+}
+
+.cmp__caption {
+  padding: 16px 20px 0;
+  color: var(--dim);
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.cmp th,
+.cmp td {
+  padding: 14px 18px;
+  vertical-align: top;
+}
+
+.cmp thead th {
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.cmp tbody tr {
+  border-top: 1px solid var(--line);
+  transition: background-color 0.25s var(--ease);
+}
+.cmp tbody tr:hover {
+  background: var(--surface-2);
+}
+
+.cmp tbody th {
+  color: var(--text);
+  font-weight: 600;
+}
+.cmp td {
+  color: var(--muted);
+}
+.cmp td strong {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* Карточки со способами: две колонки на широком экране. */
+.opts {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
+
+.opt {
+  padding: 26px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.opt:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-3px);
+}
+
+/* свой вариант выделяем акцентной рамкой — это и есть услуга сайта */
+.opt--own {
+  border-color: rgba(255, 181, 36, 0.4);
+  background: linear-gradient(165deg, var(--surface-2), var(--surface));
+}
+
+.opt h3 {
+  font-size: 1.18rem;
+}
+
+.opt__meta {
+  display: grid;
+  gap: 0;
+  margin: 16px 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.opt__meta > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+}
+.opt__meta > div:not(:last-child) {
+  border-bottom: 1px solid var(--line);
+}
+.opt__meta dt {
+  color: var(--dim);
+}
+.opt__meta dd {
+  margin: 0;
+  color: var(--muted);
+  text-align: right;
+}
+
+.opt p {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.opt p + p {
+  margin-top: 10px;
+}
+.opt strong {
+  color: var(--text);
+}
+
+.opt__note {
+  margin-top: 12px !important;
+  padding: 11px 14px;
+  border-radius: var(--radius);
+  background: rgba(255, 181, 36, 0.08);
+  border: 1px solid rgba(255, 181, 36, 0.22);
+  font-size: 0.9rem !important;
+}
+
+.opt__link {
+  margin-top: 14px !important;
+  font-size: 0.9rem !important;
+}
+.opt__link a {
+  color: var(--accent);
+  font-weight: 600;
+}
+.opt__link a:hover {
+  text-decoration: underline;
+}
+
+/* Источники: ссылки на первоисточники — им доверяют и люди, и ИИ. */
+.sources {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--dim);
+  font-size: 0.93rem;
+}
+.sources a {
+  color: var(--muted);
+  font-weight: 600;
+  border-bottom: 1px solid var(--line-strong);
+}
+.sources a:hover {
+  color: var(--accent);
+  border-bottom-color: currentColor;
+}
+
 /* ссылка «подробнее» в карточке направления на главной */
 .route__more {
   display: inline-flex;
