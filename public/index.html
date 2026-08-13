@@ -10,6 +10,9 @@
       content="Комфортный трансфер из Таллинна до погранпереходов Нарва, Койдула и Лухамаа. Фиксированная цена от 130 €, Toyota Corolla, круглосуточно. Заказ в WhatsApp и Telegram."
     />
     <link rel="canonical" href="https://ridego.ee/" />
+ . "    <!-- Разрешаем полный сниппет и крупное превью: на этом держатся и
+         обычные сниппеты, и пересказы в ИИ-поиске. -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
     <!-- Превью ссылки в WhatsApp и Telegram — основной канал заказа,
          поэтому og:image обязателен и адрес в нём должен быть абсолютным. -->
@@ -750,12 +753,53 @@
         "@context": "https://schema.org",
         "@graph": [
           {
+            "@type": "WebSite",
+            "@id": "https://ridego.ee/#website",
+            "url": "https://ridego.ee/",
+            "name": "RideGo",
+            "inLanguage": "ru",
+            "publisher": { "@id": "https://ridego.ee/#service" }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://ridego.ee/#webpage",
+            "url": "https://ridego.ee/",
+            "name": "RideGo — трансфер из Таллинна к границе с Россией",
+            "isPartOf": { "@id": "https://ridego.ee/#website" },
+            "about": { "@id": "https://ridego.ee/#service" },
+            "inLanguage": "ru",
+            "primaryImageOfPage": "https://ridego.ee/images/car-1.jpg"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://ridego.ee/#driver",
+            "name": "Кирилл",
+            "jobTitle": "Водитель",
+            "image": "https://ridego.ee/images/driver-kirill.jpg",
+            "worksFor": { "@id": "https://ridego.ee/#service" }
+          },
+          {
             "@type": "TaxiService",
             "@id": "https://ridego.ee/#service",
             "name": "RideGo",
             "description": "Трансфер из Таллинна к погранпереходам Нарва, Койдула и Лухамаа. Фиксированная цена за автомобиль, круглосуточно.",
             "url": "https://ridego.ee/",
             "image": "https://ridego.ee/images/og.png",
+            "logo": "https://ridego.ee/icon-512.png",
+            "employee": { "@id": "https://ridego.ee/#driver" },
+            "serviceType": "Трансфер к погранпереходам",
+            "vehicle": {
+              "@type": "Vehicle",
+              "name": "Toyota Corolla 2020",
+              "vehicleSeatingCapacity": 4
+            },
+            "sameAs": ["https://wa.me/37256277764", "https://t.me/+37256277764"],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+37256277764",
+              "contactType": "customer service",
+              "availableLanguage": ["ru"]
+            },
             "telephone": "+37256277764",
             "priceRange": "130-160 €",
             "currenciesAccepted": "EUR",

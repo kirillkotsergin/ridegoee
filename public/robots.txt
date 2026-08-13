@@ -1,4 +1,79 @@
+# ============================================================
+# RideGo — robots.txt
+# Сайт открыт целиком: закрывать нечего, ни админки, ни параметров в URL.
+# Группы ниже нужны не технически (правило * уже всё разрешает), а чтобы
+# намерение читалось однозначно: контент можно и индексировать, и брать
+# в ответы ИИ-поисковиков. Если однажды понадобится закрыть ИИ-ботов —
+# менять Allow на Disallow надо именно в их группе, правило * они игнорируют.
+# ============================================================
+
 User-agent: *
+Allow: /
+
+# ---------- обычные поисковики ----------
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ---------- ИИ-поиск и ассистенты ----------
+# OpenAI: GPTBot — сбор данных, OAI-SearchBot — индекс для поиска в ChatGPT,
+# ChatGPT-User — переход по ссылке, когда ассистент открывает страницу в ответе.
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Google-Extended — не краулер, а отдельный токен: им Google решает, можно ли
+# использовать страницы в Gemini и AI Overviews. Индексацию он не меняет.
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: cohere-ai
 Allow: /
 
 Sitemap: https://ridego.ee/sitemap.xml
