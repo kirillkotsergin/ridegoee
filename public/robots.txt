@@ -24,6 +24,18 @@ Allow: /
 User-agent: DuckDuckBot
 Allow: /
 
+# Независимые индексы: своих краулеров мало у кого осталось, а именно из таких
+# индексов часть ассистентов берёт веб-поиск.
+
+User-agent: MojeekBot
+Allow: /
+
+User-agent: SeznamBot
+Allow: /
+
+User-agent: PetalBot
+Allow: /
+
 # ---------- ИИ-поиск и ассистенты ----------
 # OpenAI: GPTBot — сбор данных, OAI-SearchBot — индекс для поиска в ChatGPT,
 # ChatGPT-User — переход по ссылке, когда ассистент открывает страницу в ответе.
@@ -75,5 +87,40 @@ Allow: /
 
 User-agent: cohere-ai
 Allow: /
+
+# DuckAssistBot — ИИ-ответы в DuckDuckGo, YouBot — поиск You.com.
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+# Meta-ExternalFetcher ходит за страницей по требованию пользователя, в отличие
+# от Meta-ExternalAgent, который собирает данные заранее. Нужны оба.
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# CCBot — краулер Common Crawl. Формально это не поисковик: его архив лежит в
+# основе многих обучающих наборов и части retrieval-выдачи ИИ. Для маленького
+# сайта это один из немногих способов попасть в данные, на которых учатся модели.
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Ai2Bot
+Allow: /
+
+# Bytespider — краулер ByteDance (TikTok). Известен тем, что ходит часто и
+# жадно. Сайт статический и лёгкий, поэтому пока разрешён; если однажды начнёт
+# мешать, менять Disallow надо именно в этой группе.
+
+User-agent: Bytespider
+Allow: /
+
+# Машиночитаемая сводка о сервисе для ассистентов — не стандартная директива,
+# а подсказка: https://ridego.ee/llms.txt (коротко) и
+# https://ridego.ee/llms-full.txt (цены, условия, факты о переходах целиком).
 
 Sitemap: https://ridego.ee/sitemap.xml
