@@ -105,74 +105,23 @@
           </div>
 
           <div class="hero__visual reveal" data-delay="3" aria-hidden="true">
-            <svg class="car" viewBox="0 0 640 300" role="img">
-              <defs>
-                <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#f8fafc" />
-                  <stop offset="0.55" stop-color="#cbd5e1" />
-                  <stop offset="1" stop-color="#8fa0b6" />
-                </linearGradient>
-                <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#1e293b" />
-                  <stop offset="1" stop-color="#475569" />
-                </linearGradient>
-                <radialGradient id="shadowGrad">
-                  <stop offset="0" stop-color="#000" stop-opacity="0.55" />
-                  <stop offset="1" stop-color="#000" stop-opacity="0" />
-                </radialGradient>
-              </defs>
-
-              <!-- дорога -->
-              <ellipse cx="320" cy="252" rx="250" ry="22" fill="url(#shadowGrad)" />
-              <g class="road">
-                <line x1="-60" y1="268" x2="30" y2="268" />
-                <line x1="90" y1="268" x2="180" y2="268" />
-                <line x1="240" y1="268" x2="330" y2="268" />
-                <line x1="390" y1="268" x2="480" y2="268" />
-                <line x1="540" y1="268" x2="630" y2="268" />
-              </g>
-
-              <g class="car__body">
-                <!-- кузов -->
-                <path
-                  d="M42 196c-4-14 2-26 14-30l52-16 44-38c9-8 21-12 33-12h94c14 0 27 6 36 17l30 36 92 12c22 3 38 13 45 27 4 8 5 16 4 24H42Z"
-                  fill="url(#bodyGrad)"
-                />
-                <!-- линия окон -->
-                <path
-                  d="M150 112c8-7 18-11 29-11h84c12 0 24 5 32 15l24 30H120Z"
-                  fill="url(#glassGrad)"
-                />
-                <path d="M196 101v45" stroke="#0b0f19" stroke-width="4" opacity="0.6" />
-                <!-- подштамповка -->
-                <path d="M52 170h520" stroke="#64748b" stroke-width="2" opacity="0.5" />
-                <!-- фара и фонарь -->
-                <path class="lamp" d="M44 158h34a10 10 0 0 1 0 20H46Z" fill="#fef3c7" />
-                <path d="M596 160h-30a9 9 0 0 0 0 18h32Z" fill="#f87171" />
-                <!-- ручки -->
-                <rect x="182" y="162" width="26" height="5" rx="2.5" fill="#94a3b8" />
-                <rect x="286" y="162" width="26" height="5" rx="2.5" fill="#94a3b8" />
-              </g>
-
-              <!-- колёса -->
-              <g class="wheel" style="--cx: 148px; --cy: 206px">
-                <circle cx="148" cy="206" r="46" fill="#0f172a" />
-                <circle cx="148" cy="206" r="27" fill="#cbd5e1" />
-                <g stroke="#0f172a" stroke-width="5" stroke-linecap="round">
-                  <path d="M148 186v40M128 206h40M134 192l28 28M162 192l-28 28" />
-                </g>
-              </g>
-              <g class="wheel" style="--cx: 470px; --cy: 206px">
-                <circle cx="470" cy="206" r="46" fill="#0f172a" />
-                <circle cx="470" cy="206" r="27" fill="#cbd5e1" />
-                <g stroke="#0f172a" stroke-width="5" stroke-linecap="round">
-                  <path d="M470 186v40M450 206h40M456 192l28 28M484 192l-28 28" />
-                </g>
-              </g>
-            </svg>
+            <!-- Фото машины проезжает через блок слева направо: чистый CSS,
+                 скорость — переменная --drive-time в styles.css.
+                 При prefers-reduced-motion машина просто стоит по центру. -->
+            <div class="drive">
+              <img
+                class="drive__car"
+                src="images/corolla.jpg"
+                alt=""
+                width="1920"
+                height="1080"
+                decoding="async"
+              />
+            </div>
           </div>
         </div>
       </section>
+
 
       <!-- ================= НАПРАВЛЕНИЯ ================= -->
       <!-- Цены, время и расстояния взяты с estoniatransfer.ee. Меняются здесь. -->
