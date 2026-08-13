@@ -1343,11 +1343,14 @@ svg {
 /* ---------- появление при скролле ---------- */
 
 /* Скрываем только если JS работает — иначе контент останется невидимым. */
+/* Длительность и шаг задержки держим короткими: при 0.7s и 80ms последний
+   блок в секции доезжал только через ~1.1 c, и переход между страницами
+   ощущался медленным, хотя сервер отвечает за 50 мс. */
 html.js .reveal {
   opacity: 0;
-  translate: 0 22px;
-  transition: opacity 0.7s var(--ease), translate 0.7s var(--ease);
-  transition-delay: calc(var(--d, 0) * 80ms);
+  translate: 0 16px;
+  transition: opacity 0.36s var(--ease), translate 0.36s var(--ease);
+  transition-delay: calc(var(--d, 0) * 40ms);
 }
 
 html.js .reveal.is-visible {

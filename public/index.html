@@ -36,11 +36,20 @@
     <link rel="manifest" href="site.webmanifest" />
     <!-- ?v= — версия для кеша: статика кешируется на месяц, поэтому при
          правке styles.css или script.js номер надо увеличить. -->
-    <link rel="stylesheet" href="styles.css?v=7" />
+    <link rel="stylesheet" href="styles.css?v=8" />
 
     <!-- Ставим метку до отрисовки: анимации появления включаются только с JS -->
     <script>
       document.documentElement.classList.add("js");
+    </script>
+
+    <!-- Предзагрузка следующей страницы: браузер готовит её заранее — при
+         наведении на ссылку, на телефоне при касании. Поддерживают Chrome
+         и Edge, остальные просто игнорируют. -->
+    <script type="speculationrules">
+      {
+        "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }]
+      }
     </script>
   </head>
 
@@ -294,16 +303,17 @@
                   <img
                     class="car-slide"
                     src="images/car-1.jpg"
-                    width="1600"
-                    height="900"
+                    width="1200"
+                    height="675"
+                    fetchpriority="high"
                     decoding="async"
                     alt="Toyota Corolla E210 — вид спереди"
                   />
                   <img
                     class="car-slide"
                     src="images/car-2.jpg"
-                    width="1600"
-                    height="900"
+                    width="1200"
+                    height="675"
                     loading="lazy"
                     decoding="async"
                     alt="Toyota Corolla E210 — вид сзади"
@@ -311,8 +321,8 @@
                   <img
                     class="car-slide"
                     src="images/car-3.jpg"
-                    width="1600"
-                    height="983"
+                    width="1200"
+                    height="737"
                     loading="lazy"
                     decoding="async"
                     alt="Toyota Corolla E210 — задний ряд, салон"
@@ -670,7 +680,7 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=7" defer></script>
+    <script src="script.js?v=8" defer></script>
 
     <!-- Разметка для поисковиков. Держим в согласии с текстом страницы:
          меняешь цены или ответы FAQ — поправь и здесь. -->

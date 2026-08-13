@@ -41,7 +41,9 @@
           observer.unobserve(entry.target);
         });
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+      // Запускаем появление чуть раньше, чем блок доедет до экрана: пока
+      // пользователь листает, контент уже на месте, а не догоняет его.
+      { rootMargin: "0px 0px 12% 0px", threshold: 0.01 }
     );
 
     revealables.forEach(function (el) {
