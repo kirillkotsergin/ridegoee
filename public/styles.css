@@ -924,6 +924,58 @@ svg {
   animation: fadeUp 0.35s var(--ease);
 }
 
+/* ссылки внутри ответов — единственное место, где они нужны цветными */
+.faq__item a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 181, 36, 0.4);
+  text-underline-offset: 3px;
+}
+.faq__item a:hover {
+  text-decoration-color: var(--accent);
+}
+
+/* ---------- полезная информация (внутри секции FAQ) ---------- */
+
+.faq__subhead {
+  margin: 42px 0 14px;
+  font-size: clamp(1.1rem, 2vw, 1.28rem);
+}
+
+.info-list {
+  margin: 0;
+  padding: 0 22px 6px;
+  list-style: none;
+  animation: fadeUp 0.35s var(--ease);
+}
+
+.info-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 18px;
+  padding: 11px 0;
+  font-size: 0.95rem;
+}
+.info-list li:not(:last-child) {
+  border-bottom: 1px solid var(--line);
+}
+
+.info-list__k {
+  color: var(--dim);
+}
+.info-list__v {
+  color: var(--muted);
+}
+.info-list__v a {
+  white-space: nowrap;
+}
+
+.info-note {
+  padding-top: 14px !important;
+}
+
 @keyframes fadeUp {
   from {
     opacity: 0;
