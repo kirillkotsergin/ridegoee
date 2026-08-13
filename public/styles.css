@@ -637,16 +637,15 @@ svg {
   display: none;
 }
 
-/* Фото лежит верхним слоем; если файла нет — виден SVG под ним. */
 .car-slide {
+  display: block;
   flex: 0 0 100%;
   scroll-snap-align: center;
+  width: 100%;
+  height: auto;
   aspect-ratio: 16 / 10;
-  background-image: var(--photo, none), url("images/car-illustration.svg");
-  background-repeat: no-repeat, no-repeat;
-  background-position: center, center;
-  background-size: cover, cover;
-  background-color: var(--bg-alt);
+  object-fit: cover;
+  background: var(--bg-alt);
 }
 
 .car-slider__arrow {

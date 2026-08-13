@@ -262,28 +262,35 @@
           <div class="car-cards">
             <article class="car-card reveal" data-delay="1">
               <!-- Слайдер: чистый CSS scroll-snap, JS только для стрелок и точек.
-                   Фото положить в public/images/car-1.jpg … car-3.jpg.
-                   Пока файла нет, в слайде виден SVG-набросок под ним. -->
+                   Фото — public/images/car-1.jpg … car-3.jpg, 1600 px. -->
               <div class="car-slider" data-slider>
                 <div class="car-slider__track" data-slider-track>
-                  <div
+                  <img
                     class="car-slide"
-                    style="--photo: url('images/car-1.jpg')"
-                    role="img"
-                    aria-label="Toyota Corolla E210 — вид спереди"
-                  ></div>
-                  <div
+                    src="images/car-1.jpg"
+                    width="1600"
+                    height="900"
+                    decoding="async"
+                    alt="Toyota Corolla E210 — вид спереди"
+                  />
+                  <img
                     class="car-slide"
-                    style="--photo: url('images/car-2.jpg')"
-                    role="img"
-                    aria-label="Toyota Corolla E210 — вид сзади"
-                  ></div>
-                  <div
+                    src="images/car-2.jpg"
+                    width="1600"
+                    height="900"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Toyota Corolla E210 — вид сзади"
+                  />
+                  <img
                     class="car-slide"
-                    style="--photo: url('images/car-3.jpg')"
-                    role="img"
-                    aria-label="Toyota Corolla E210 — задний ряд, салон"
-                  ></div>
+                    src="images/car-3.jpg"
+                    width="1600"
+                    height="983"
+                    loading="lazy"
+                    decoding="async"
+                    alt="Toyota Corolla E210 — задний ряд, салон"
+                  />
                 </div>
 
                 <button class="car-slider__arrow car-slider__arrow--prev" type="button" data-slider-prev aria-label="Предыдущее фото">
