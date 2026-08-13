@@ -154,7 +154,7 @@ $g.DrawString("ТРАНСФЕР ЭСТОНИЯ → РОССИЯ", $fontEyebrow, 
 $g.DrawString("Из Таллинна", $fontTitle, $brText, 78, 252)
 $g.DrawString("к границе с Россией", $fontTitle, $brAccent, 78, 330)
 $g.DrawString("Нарва · Койдула · Лухамаа   —   от 130 €, круглосуточно", $fontLead, $brMuted, 82, 436)
-$g.DrawString("+372 5387 4330   ·   ridego.ee", $fontLead, $brText, 82, 496)
+$g.DrawString("+372 5627 7764   ·   ridego.ee", $fontLead, $brText, 82, 496)
 
 $g.Dispose()
 $bmp.Save((Join-Path $out "images\og.png"), [System.Drawing.Imaging.ImageFormat]::Png)
