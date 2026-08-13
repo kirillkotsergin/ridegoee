@@ -983,6 +983,105 @@ svg {
   }
 }
 
+/* ---------- страницы маршрутов ---------- */
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 26px;
+  font-size: 0.88rem;
+  color: var(--dim);
+}
+.crumbs a {
+  color: var(--muted);
+  border-bottom: 1px solid transparent;
+}
+.crumbs a:hover {
+  color: var(--accent);
+  border-bottom-color: currentColor;
+}
+
+.perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+  margin: 34px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.perks li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+/* галочка перед пунктом */
+.perks li::before {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  rotate: -45deg;
+  translate: 0 -2px;
+}
+
+.crosslinks {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.crosslinks a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.25s var(--ease), background-color 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+.crosslinks a:hover {
+  border-color: var(--accent);
+  background: var(--surface-2);
+  transform: translateY(-2px);
+}
+.crosslinks strong {
+  color: var(--accent);
+  white-space: nowrap;
+}
+
+/* ссылка «подробнее» в карточке направления на главной */
+.route__more {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: color 0.2s var(--ease), gap 0.2s var(--ease);
+}
+.route__more:hover {
+  color: var(--accent);
+  gap: 11px;
+}
+
 /* ---------- финальный CTA ---------- */
 
 .cta {

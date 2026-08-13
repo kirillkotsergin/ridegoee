@@ -51,7 +51,13 @@
 ├─ .github/workflows/deploy.yml  автодеплой на zone.ee по push в main
 ├─ tools/make-icons.ps1          генератор favicon.ico, иконок и og.png (UTF-8 с BOM!)
 └─ public/                       ← ровно это содержимое уезжает на хостинг
-   ├─ index.html                 вся страница + JSON-LD (TaxiService, FAQPage) в конце body
+   ├─ index.html                 главная + JSON-LD (TaxiService, FAQPage) в конце body
+   ├─ tallinn-narva/index.html   ← шесть посадочных страниц под маршруты, см. раздел 3.1
+   ├─ narva-tallinn/index.html
+   ├─ tallinn-koidula/index.html
+   ├─ koidula-tallinn/index.html
+   ├─ tallinn-luhamaa/index.html
+   ├─ luhamaa-tallinn/index.html
    ├─ 404.html                   страница «не найдено», переиспользует styles.css
    ├─ styles.css                 всё оформление (~1100 строк)
    ├─ script.js                  скролл-анимации, «прилипающая» шапка, модалка заказа
@@ -69,6 +75,30 @@
 `header` → `hero` → `#routes` (направления и цены) → `#car` (автомобиль) →
 `#how` (4 шага) → `#why` (преимущества) → `#faq` (5 вопросов в `<details>`) →
 финальный CTA → `footer` → плавающая кнопка `.fab` (моб.) → `<dialog id="order-dialog">`.
+
+### 3.1 Посадочные страницы под маршруты (SEO)
+
+Шесть отдельных страниц: `/tallinn-narva/`, `/narva-tallinn/`, `/tallinn-koidula/`,
+`/koidula-tallinn/`, `/tallinn-luhamaa/`, `/luhamaa-tallinn/`. Каждая — папка с
+`index.html`, поэтому URL без `.html` и без правок `.htaccess`.
+
+- **Смысл:** на главной все три маршрута конкурируют за одну страницу. Отдельная
+  страница на маршрут выигрывает запросы вида «трансфер Таллинн Нарва».
+- **Тексты у каждой свои** — это условие работы: одинаковый шаблон с подменёнными
+  словами Google склеит как дубли. Общий у страниц только блок «что входит в цену»
+  (`.perks`) и подвал.
+- **Структура:** крошки → hero с H1, ценой и `.perks` → «как проходит поездка»
+  (`.steps`) → блок про сам погранпереход (`details`) → FAQ по маршруту →
+  перелинковка `.crosslinks` → CTA. Заказ — прямые ссылки в WhatsApp с готовым
+  текстом, модалки на этих страницах нет.
+- **Пути к ассетам абсолютные** (`/styles.css?v=4`) — из-за подкаталогов. Побочный
+  эффект: по `file://` эти страницы открываются без стилей, для просмотра нужен
+  сервер (`npx serve public` или `python -m http.server` из `public/`).
+- **JSON-LD:** `BreadcrumbList` + `Service` с `Offer` + `FAQPage` на каждой странице.
+  Меняешь цену — правь и в тексте, и в `Offer`, и в `sitemap.xml` (там все семь URL).
+- **Факты о границе** (часы работы, «Нарва только пешком») взяты из новостей и
+  politsei.ee на август 2026 и помечены `ПРОВЕРЬ`: правила меняются, а на страницах
+  они стоят как утверждения.
 
 ### Цены и маршруты (жёстко прописаны в HTML, секция `#routes`)
 
