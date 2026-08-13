@@ -56,12 +56,12 @@ Narva Port Hostel (Jõe tn 3) и апартаменты Narva Kangelaste 2 (Kang
 
 ## Страницы маршрутов
 
-- [Таллинн — Нарва](https://ridego.ee/tallinn-narva/): трансфер до погранперехода в Нарве, 130 €
-- [Нарва — Таллинн](https://ridego.ee/narva-tallinn/): от границы в Нарве в Таллинн, 130 €
-- [Таллинн — Койдула](https://ridego.ee/tallinn-koidula/): до пункта пропуска Койдула, 160 €
-- [Койдула — Таллинн](https://ridego.ee/koidula-tallinn/): от Койдулы в Таллинн, 160 €
-- [Таллинн — Лухамаа](https://ridego.ee/tallinn-luhamaa/): до пункта пропуска Лухамаа, 160 €
-- [Лухамаа — Таллинн](https://ridego.ee/luhamaa-tallinn/): от Лухамаа в Таллинн, 160 €
+- [Таллинн — Нарва](https://ridego.ee/transfer-tallinn-narva/): трансфер до погранперехода в Нарве, 130 €
+- [Нарва — Таллинн](https://ridego.ee/transfer-narva-tallinn/): от границы в Нарве в Таллинн, 130 €
+- [Таллинн — Койдула](https://ridego.ee/transfer-tallinn-koidula/): до пункта пропуска Койдула, 160 €
+- [Койдула — Таллинн](https://ridego.ee/transfer-koidula-tallinn/): от Койдулы в Таллинн, 160 €
+- [Таллинн — Лухамаа](https://ridego.ee/transfer-tallinn-luhamaa/): до пункта пропуска Лухамаа, 160 €
+- [Лухамаа — Таллинн](https://ridego.ee/transfer-luhamaa-tallinn/): от Лухамаа в Таллинн, 160 €
 - [Тарту — Койдула и Тарту — Лухамаа](https://ridego.ee/transfer-tartu-koidula-luhamaa/): из Тарту до обоих переходов, 80 €
 - [Из России к границе](https://ridego.ee/transfer-spb-ivangorod/): Санкт-Петербург — Ивангород 6500 ₽, Куничина Гора — Псков 3000 ₽, Куничина Гора — Санкт-Петербург 17 000 ₽
 

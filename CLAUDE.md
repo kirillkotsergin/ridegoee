@@ -52,14 +52,15 @@
 ├─ tools/make-icons.ps1          генератор favicon.ico, иконок и og.png (UTF-8 с BOM!)
 └─ public/                       ← ровно это содержимое уезжает на хостинг
    ├─ index.html                 главная + JSON-LD (TaxiService, FAQPage) в конце body
-   ├─ tallinn-narva/index.html   ← восемь посадочных страниц под маршруты, см. раздел 3.1
-   ├─ narva-tallinn/index.html
-   ├─ tallinn-koidula/index.html
-   ├─ koidula-tallinn/index.html
-   ├─ tallinn-luhamaa/index.html
-   ├─ luhamaa-tallinn/index.html
+   ├─ transfer-tallinn-narva/index.html  ← восемь посадочных страниц, см. раздел 3.1
+   ├─ transfer-narva-tallinn/index.html
+   ├─ transfer-tallinn-koidula/index.html
+   ├─ transfer-koidula-tallinn/index.html
+   ├─ transfer-tallinn-luhamaa/index.html
+   ├─ transfer-luhamaa-tallinn/index.html
    ├─ transfer-spb-ivangorod/index.html          российская сторона, цены в рублях
    ├─ transfer-tartu-koidula-luhamaa/index.html  из Тарту, 80 €
+   ├─ kak-dobratsya-do-granicy/index.html        гид, без префикса transfer-
    ├─ 404.html                   страница «не найдено», переиспользует styles.css
    ├─ styles.css                 всё оформление (~1100 строк)
    ├─ script.js                  скролл-анимации, «прилипающая» шапка, модалка заказа
@@ -91,17 +92,19 @@
 
 ### 3.1 Посадочные страницы под маршруты (SEO)
 
-Восемь отдельных страниц. Шесть по маршрутам из Таллинна: `/tallinn-narva/`,
-`/narva-tallinn/`, `/tallinn-koidula/`, `/koidula-tallinn/`, `/tallinn-luhamaa/`,
-`/luhamaa-tallinn/`. Плюс две новые: `/transfer-spb-ivangorod/` (российская сторона,
+Восемь отдельных страниц. Шесть по маршрутам из Таллинна: `/transfer-tallinn-narva/`,
+`/transfer-narva-tallinn/`, `/transfer-tallinn-koidula/`, `/transfer-koidula-tallinn/`, `/transfer-tallinn-luhamaa/`,
+`/transfer-luhamaa-tallinn/`. Плюс две новые: `/transfer-spb-ivangorod/` (российская сторона,
 цены в рублях) и `/transfer-tartu-koidula-luhamaa/` (из Тарту, 80 €). Каждая — папка
 с `index.html`, поэтому URL без `.html` и без правок `.htaccess`.
 
-- **Договорённость по адресам (13.08):** в слаге новых страниц есть слово
-  `transfer` — `/transfer-<откуда>-<куда>/`. Старые шесть остались без него:
-  переименовать их можно, но тогда нужны 301-редиректы в `.htaccess`, правка
-  `canonical`, всех внутренних ссылок, `sitemap.xml`, `llms.txt` и повторная
-  отправка в IndexNow. **Пока не сделано** — см. список задач в разделе 6.
+- **Договорённость по адресам (13.08):** в слаге каждой страницы маршрута есть
+  слово `transfer` — `/transfer-<откуда>-<куда>/`. Новые страницы называем так же.
+  Гид `/kak-dobratsya-do-granicy/` префикса не получил: это не маршрут.
+- **Старые адреса (без префикса) отдают 301** — правило в `.htaccess`, одной
+  строкой на все шесть. Они успели попасть в IndexNow и в карту сайта, поэтому
+  редирект переносит вес на новый URL. Правило не удаляем: оно страхует внешние
+  ссылки, которые могли появиться.
 
 - **Смысл:** на главной все три маршрута конкурируют за одну страницу. Отдельная
   страница на маршрут выигрывает запросы вида «трансфер Таллинн Нарва».
@@ -126,7 +129,7 @@
 ### 3.2 Счётчик посещений (`hits.php`)
 
 Единственный серверный код на сайте. В подвале слева, под копирайтом, — мелкая
-пилюля «Посещений: N» (`.hits` в `styles.css`, разметка во всех восьми страницах).
+пилюля «Посещений: N» (`.hits` в `styles.css`, разметка во всех десяти страницах).
 
 - **Что считает:** уникальных посетителей за сутки. Посетителя различаем по
   `sha256(соль + IP + User-Agent)`, обрезанному до 16 знаков; сам IP не пишется,
@@ -388,10 +391,9 @@ TLS 1.1 сервер отклоняет. `renew.log` показывает зап
       `/transfer-tartu-koidula-luhamaa/`): расстояния и время в пути, кто выполняет
       российскую часть маршрута, оплата в рублях и предоплата, правила въезда в
       пограничную зону Ивангорода. Всё помечено `ПРОВЕРЬ` в разметке.
-- [ ] **Решить про адреса старых страниц.** С 13.08 новые посадочные страницы
-      называются `/transfer-…/`. Шесть старых остались без префикса. Приводить к
-      одному виду — значит 301-редиректы в `.htaccess`, правка `canonical`,
-      внутренних ссылок, `sitemap.xml`, `llms.txt` и повторный IndexNow.
+- [x] ~~Решить про адреса старых страниц~~ — 13.08 все шесть переименованы в
+      `/transfer-…/`, со старых стоит 301 в `.htaccess`; поправлены `canonical`,
+      внутренние ссылки, `sitemap.xml`, `llms.txt`, отправлено в IndexNow.
 - [ ] Аналитики нет — при необходимости добавить (учти: аналитика — это уже cookie
       и баннер согласия, чего у сайта сейчас нет, см. раздел 3.2).
 

@@ -15,6 +15,13 @@ ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteCond %{HTTP_HOST} ^www\.ridego\.ee$ [NC]
   RewriteRule ^(.*)$ https://ridego.ee/$1 [R=301,L]
+
+  # ---------- старые адреса страниц маршрутов → с префиксом transfer- ----------
+  # 13.08 шесть страниц переименованы: /tallinn-narva/ → /transfer-tallinn-narva/.
+  # Старые URL успели уйти в IndexNow и в карту сайта, поэтому отдаём 301, а не 404:
+  # так поисковики переносят накопленный вес на новый адрес.
+  # Удалять правило не нужно — оно ничего не стоит и страхует внешние ссылки.
+  RewriteRule ^(tallinn-narva|narva-tallinn|tallinn-koidula|koidula-tallinn|tallinn-luhamaa|luhamaa-tallinn)/?$ /transfer-$1/ [R=301,L]
 </IfModule>
 
 # ---------- сжатие ----------
