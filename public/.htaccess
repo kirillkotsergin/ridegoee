@@ -16,12 +16,32 @@ ErrorDocument 404 /404.html
   RewriteCond %{HTTP_HOST} ^www\.ridego\.ee$ [NC]
   RewriteRule ^(.*)$ https://ridego.ee/$1 [R=301,L]
 
+  # ---------- /index.html → / ----------
+  # Явный запрос index.html — технический дубль главной: та же страница по двум
+  # адресам. Canonical их склеивает, но 301 честнее.
+  # Условие смотрит на THE_REQUEST, то есть на исходную строку запроса от
+  # браузера. Внутренняя подстановка index.html, которую делает DirectoryIndex
+  # для «/», в THE_REQUEST не попадает — поэтому цикла нет.
+  RewriteCond %{THE_REQUEST} \s/+(.*)index\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
   # ---------- старые адреса страниц маршрутов → с префиксом transfer- ----------
   # 13.08 шесть страниц переименованы: /tallinn-narva/ → /transfer-tallinn-narva/.
   # Старые URL успели уйти в IndexNow и в карту сайта, поэтому отдаём 301, а не 404:
   # так поисковики переносят накопленный вес на новый адрес.
   # Удалять правило не нужно — оно ничего не стоит и страхует внешние ссылки.
   RewriteRule ^(tallinn-narva|narva-tallinn|tallinn-koidula|koidula-tallinn|tallinn-luhamaa|luhamaa-tallinn)/?$ /transfer-$1/ [R=301,L]
+
+  # ---------- WebP вместо JPEG, если браузер его понимает ----------
+  # Рядом с каждым фото лежит .webp того же имени (см. tools/make-webp.sh).
+  # Подмена срабатывает только при двух условиях сразу: браузер прислал
+  # Accept: image/webp И файл .webp реально существует. Поэтому разметку
+  # менять не пришлось — правило работает и для фото, которое подставляет JS.
+  # og.png и иконки остаются PNG: для них .webp намеренно не сгенерирован,
+  # соцсети и iOS ждут именно PNG.
+  RewriteCond %{HTTP_ACCEPT} image/webp
+  RewriteCond %{DOCUMENT_ROOT}/$1.webp -f
+  RewriteRule ^(.+)\.(jpe?g|png)$ $1.webp [T=image/webp,L]
 </IfModule>
 
 # ---------- сжатие ----------
@@ -56,6 +76,13 @@ ErrorDocument 404 /404.html
   # Счётчик посещений: ответ живой, ни браузеру, ни прокси его не кешировать.
   <FilesMatch "\.php$">
     Header set Cache-Control "no-store"
+  </FilesMatch>
+
+  # По одному и тому же адресу картинки может прийти JPEG или WebP — зависит от
+  # заголовка Accept. Vary говорит кешам различать эти варианты, иначе браузеру
+  # без поддержки WebP может достаться WebP из чужого кеша.
+  <FilesMatch "\.(jpe?g|png)$">
+    Header append Vary Accept
   </FilesMatch>
 
   # ---------- заголовки безопасности ----------
