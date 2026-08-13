@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Главная плюс шесть страниц маршрутов. Дату меняем при заметных правках содержания. -->
+<!-- Главная, гид «как добраться до границы» и шесть страниц маршрутов.
+     lastmod = дата последней правки содержания страницы, ставим руками.
+     404.html в карту не входит: у неё noindex. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ridego.ee/</loc>
@@ -7,10 +9,12 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+  <!-- Гид с ценами и расписаниями перевозчиков: меняется чаще остальных,
+       поэтому weekly. -->
   <url>
     <loc>https://ridego.ee/kak-dobratsya-do-granicy/</loc>
     <lastmod>2026-08-13</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
