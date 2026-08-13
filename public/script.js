@@ -123,6 +123,48 @@
     sync();
   });
 
+  /* ---------- фото крупнее (водитель) ----------
+     Открывает <dialog id="photo-dialog">. Escape закрывает сам dialog,
+     фокус возвращаем на кружок с фото. */
+
+  var photoDialog = document.getElementById("photo-dialog");
+
+  if (photoDialog) {
+    var photoImg = photoDialog.querySelector("[data-photo-target]");
+    var photoTrigger = null;
+
+    document.addEventListener("click", function (event) {
+      if (!(event.target instanceof Element)) return;
+
+      var trigger = event.target.closest("[data-photo]");
+      if (!trigger) return;
+
+      event.preventDefault();
+
+      if (photoImg) {
+        photoImg.src = trigger.getAttribute("data-photo");
+        photoImg.alt = trigger.getAttribute("data-photo-alt") || "";
+      }
+
+      photoTrigger = trigger;
+
+      if (typeof photoDialog.showModal === "function") photoDialog.showModal();
+    });
+
+    photoDialog.addEventListener("click", function (event) {
+      if (!(event.target instanceof Element)) return;
+      // закрываем по кресту и по клику вне карточки
+      if (event.target === photoDialog || event.target.closest("[data-close]")) {
+        photoDialog.close();
+      }
+    });
+
+    photoDialog.addEventListener("close", function () {
+      if (photoTrigger && document.contains(photoTrigger)) photoTrigger.focus();
+      photoTrigger = null;
+    });
+  }
+
   /* ---------- модалка заказа ---------- */
 
   var dialog = document.getElementById("order-dialog");

@@ -36,7 +36,7 @@
     <link rel="manifest" href="site.webmanifest" />
     <!-- ?v= — версия для кеша: статика кешируется на месяц, поэтому при
          правке styles.css или script.js номер надо увеличить. -->
-    <link rel="stylesheet" href="styles.css?v=10" />
+    <link rel="stylesheet" href="styles.css?v=11" />
 
     <!-- Ставим метку до отрисовки: анимации появления включаются только с JS -->
     <script>
@@ -379,6 +379,44 @@
                 </button>
               </div>
             </article>
+
+            <!-- Водитель. Фото — public/images/driver-kirill.jpg, 640×640.
+                 По клику открывается крупнее в модалке #photo-dialog.
+                 ПРОВЕРЬ: формулировки про встречу и ответы в мессенджерах. -->
+            <aside class="driver reveal" data-delay="2">
+              <button
+                class="driver__photo"
+                type="button"
+                data-photo="images/driver-kirill.jpg"
+                data-photo-alt="Кирилл — водитель RideGo"
+                aria-label="Открыть фото Кирилла крупнее"
+              >
+                <img
+                  src="images/driver-kirill.jpg"
+                  width="640"
+                  height="640"
+                  loading="lazy"
+                  decoding="async"
+                  alt="Кирилл — водитель RideGo"
+                />
+                <span class="driver__zoom" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+                    <circle cx="10.8" cy="10.8" r="6.3" />
+                    <path d="M15.6 15.6l4.4 4.4M10.8 8.2v5.2M8.2 10.8h5.2" />
+                  </svg>
+                </span>
+              </button>
+
+              <p class="driver__role">Ваш водитель</p>
+              <h3 class="driver__name">Кирилл</h3>
+              <p class="driver__text">
+                Встречу, помогу с багажом и довезу до пункта пропуска. На сообщения отвечаю
+                сам — в WhatsApp и Telegram, в любое время суток.
+              </p>
+              <button class="btn btn--ghost btn--full" type="button" data-order>
+                Написать Кириллу
+              </button>
+            </aside>
           </div>
         </div>
       </section>
@@ -690,7 +728,18 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=8" defer></script>
+    <!-- ================= ФОТО ВОДИТЕЛЯ КРУПНЕЕ ================= -->
+    <dialog class="modal photo-modal" id="photo-dialog" aria-label="Фото водителя">
+      <div class="photo-modal__card">
+        <button class="modal__close" data-close type="button" aria-label="Закрыть">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <img class="photo-modal__img" data-photo-target src="" alt="" width="640" height="640" />
+        <p class="photo-modal__cap">Кирилл — ваш водитель</p>
+      </div>
+    </dialog>
+
+    <script src="script.js?v=9" defer></script>
 
     <!-- Разметка для поисковиков. Держим в согласии с текстом страницы:
          меняешь цены или ответы FAQ — поправь и здесь. -->
