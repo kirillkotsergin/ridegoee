@@ -36,7 +36,7 @@
     <link rel="manifest" href="site.webmanifest" />
     <!-- ?v= — версия для кеша: статика кешируется на месяц, поэтому при
          правке styles.css или script.js номер надо увеличить. -->
-    <link rel="stylesheet" href="styles.css?v=11" />
+    <link rel="stylesheet" href="styles.css?v=12" />
 
     <!-- Ставим метку до отрисовки: анимации появления включаются только с JS -->
     <script>
@@ -380,21 +380,23 @@
               </div>
             </article>
 
-            <!-- Водитель. Фото — public/images/driver-kirill.jpg, 640×640.
-                 По клику открывается крупнее в модалке #photo-dialog.
+            <!-- Водитель. Два файла: driver-kirill.jpg — кроп «голова и плечи»
+                 440×440 под кружок (вырезан из полного кадра с отступом
+                 x 100, y 0, 420×420), driver-kirill-full.jpg — исходные 640×640,
+                 открывается по клику в модалке #photo-dialog.
                  ПРОВЕРЬ: формулировки про встречу и ответы в мессенджерах. -->
             <aside class="driver reveal" data-delay="2">
               <button
                 class="driver__photo"
                 type="button"
-                data-photo="images/driver-kirill.jpg"
+                data-photo="images/driver-kirill-full.jpg"
                 data-photo-alt="Кирилл — водитель RideGo"
                 aria-label="Открыть фото Кирилла крупнее"
               >
                 <img
                   src="images/driver-kirill.jpg"
-                  width="640"
-                  height="640"
+                  width="440"
+                  height="440"
                   loading="lazy"
                   decoding="async"
                   alt="Кирилл — водитель RideGo"

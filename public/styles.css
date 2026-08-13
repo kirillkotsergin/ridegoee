@@ -949,7 +949,6 @@ svg {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  object-position: 50% 22%;
   background: var(--bg-alt);
 }
 
