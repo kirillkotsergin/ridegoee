@@ -54,6 +54,73 @@
     });
   }
 
+  /* ---------- слайдер фото автомобиля ----------
+     Прокрутка и свайп работают на чистом CSS (scroll-snap).
+     JS добавляет только стрелки и точки; без него слайды листаются пальцем. */
+
+  document.querySelectorAll("[data-slider]").forEach(function (slider) {
+    var track = slider.querySelector("[data-slider-track]");
+    if (!track) return;
+
+    var slides = track.children;
+    var count = slides.length;
+    if (count < 2) return;
+
+    var prev = slider.querySelector("[data-slider-prev]");
+    var next = slider.querySelector("[data-slider-next]");
+    var dotsBox = slider.querySelector("[data-slider-dots]");
+    var dots = [];
+
+    function goTo(index) {
+      var i = Math.max(0, Math.min(count - 1, index));
+      track.scrollTo({ left: slides[i].offsetLeft - track.offsetLeft, behavior: "smooth" });
+    }
+
+    function current() {
+      return Math.round(track.scrollLeft / track.clientWidth);
+    }
+
+    if (dotsBox) {
+      for (var i = 0; i < count; i++) {
+        (function (index) {
+          var dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "car-slider__dot";
+          dot.setAttribute("aria-label", "Фото " + (index + 1));
+          dot.addEventListener("click", function () {
+            goTo(index);
+          });
+          dotsBox.appendChild(dot);
+          dots.push(dot);
+        })(i);
+      }
+    }
+
+    function sync() {
+      var active = current();
+      dots.forEach(function (dot, index) {
+        dot.classList.toggle("is-active", index === active);
+      });
+      if (prev) prev.classList.toggle("is-disabled", active === 0);
+      if (next) next.classList.toggle("is-disabled", active === count - 1);
+    }
+
+    if (prev) {
+      prev.addEventListener("click", function () {
+        goTo(current() - 1);
+      });
+    }
+    if (next) {
+      next.addEventListener("click", function () {
+        goTo(current() + 1);
+      });
+    }
+
+    track.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync, { passive: true });
+    sync();
+  });
+
   /* ---------- модалка заказа ---------- */
 
   var dialog = document.getElementById("order-dialog");

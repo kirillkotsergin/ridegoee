@@ -253,32 +253,79 @@
 
       <!-- ================= АВТОМОБИЛЬ ================= -->
       <section class="section section--alt" id="car">
-        <div class="container car-layout">
-          <div class="car-layout__media reveal">
-            <!-- Фото машины: положи файл public/images/corolla.jpg -->
-            <!-- Пока файла нет, автоматически показывается иллюстрация. -->
-            <div class="car-photo" role="img" aria-label="Toyota Corolla E210"></div>
-            <p class="car-photo__caption">Toyota Corolla E210</p>
-          </div>
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Автомобиль</p>
+            <h2>Одна машина — три направления</h2>
+          </header>
 
-          <div class="car-layout__copy">
-            <p class="eyebrow reveal">Автомобиль</p>
-            <h2 class="reveal" data-delay="1">Toyota Corolla E210 — тихо, ровно, без сюрпризов</h2>
-            <p class="reveal" data-delay="2">
-              Одна из самых надёжных машин в своём классе: экономичный гибрид, мягкая
-              подвеска и достаточно места, чтобы три часа до границы прошли незаметно.
-              Салон некурящий, летом работает кондиционер, зимой — подогрев.
-            </p>
+          <div class="car-cards">
+            <article class="car-card reveal" data-delay="1">
+              <!-- Слайдер: чистый CSS scroll-snap, JS только для стрелок и точек.
+                   Фото положить в public/images/car-1.jpg … car-3.jpg.
+                   Пока файла нет, в слайде виден SVG-набросок под ним. -->
+              <div class="car-slider" data-slider>
+                <div class="car-slider__track" data-slider-track>
+                  <div
+                    class="car-slide"
+                    style="--photo: url('images/car-1.jpg')"
+                    role="img"
+                    aria-label="Toyota Corolla E210 — вид спереди"
+                  ></div>
+                  <div
+                    class="car-slide"
+                    style="--photo: url('images/car-2.jpg')"
+                    role="img"
+                    aria-label="Toyota Corolla E210 — вид сзади"
+                  ></div>
+                  <div
+                    class="car-slide"
+                    style="--photo: url('images/car-3.jpg')"
+                    role="img"
+                    aria-label="Toyota Corolla E210 — задний ряд, салон"
+                  ></div>
+                </div>
 
-            <!-- ПРОВЕРЬ: количество мест, багаж, наличие детского кресла -->
-            <ul class="specs reveal" data-delay="3">
-              <li><span class="specs__k">Пассажиров</span><span class="specs__v">до 4</span></li>
-              <li><span class="specs__k">Багаж</span><span class="specs__v">2 чемодана + ручная кладь</span></li>
-              <li><span class="specs__k">Климат</span><span class="specs__v">кондиционер, подогрев</span></li>
-              <li><span class="specs__k">Детское кресло</span><span class="specs__v">по запросу</span></li>
-              <li><span class="specs__k">Салон</span><span class="specs__v">некурящий</span></li>
-              <li><span class="specs__k">Зарядка</span><span class="specs__v">USB в дороге</span></li>
-            </ul>
+                <button class="car-slider__arrow car-slider__arrow--prev" type="button" data-slider-prev aria-label="Предыдущее фото">
+                  <span aria-hidden="true">‹</span>
+                </button>
+                <button class="car-slider__arrow car-slider__arrow--next" type="button" data-slider-next aria-label="Следующее фото">
+                  <span aria-hidden="true">›</span>
+                </button>
+
+                <div class="car-slider__dots" data-slider-dots></div>
+              </div>
+
+              <div class="car-card__body">
+                <h3 class="car-card__title">Toyota Corolla E210</h3>
+                <p class="car-card__meta">1 + 4 человека · 2 чемодана + ручная кладь</p>
+
+                <!-- ПРОВЕРЬ: цены держим в согласии с секцией «Направления» и JSON-LD -->
+                <ul class="car-prices">
+                  <li>
+                    <span class="car-prices__k">Таллинн — Нарва</span>
+                    <span class="car-prices__v">130 €</span>
+                  </li>
+                  <li>
+                    <span class="car-prices__k">Таллинн — Койдула</span>
+                    <span class="car-prices__v">160 €</span>
+                  </li>
+                  <li>
+                    <span class="car-prices__k">Таллинн — Лухамаа</span>
+                    <span class="car-prices__v">160 €</span>
+                  </li>
+                </ul>
+
+                <p class="car-card__note">
+                  Цена за машину целиком. Салон некурящий, кондиционер и подогрев,
+                  детское кресло — по запросу.
+                </p>
+
+                <button class="btn btn--accent btn--lg btn--full" type="button" data-order>
+                  Забронировать машину
+                </button>
+              </div>
+            </article>
           </div>
         </div>
       </section>
