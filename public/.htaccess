@@ -37,11 +37,18 @@ ErrorDocument 404 /404.html
   ExpiresByType image/jpeg "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType image/x-icon "access plus 1 year"
+  # Ответ счётчика (hits.php) кешировать нельзя — иначе число застынет.
+  ExpiresByType application/json "access plus 0 seconds"
 </IfModule>
 
 <IfModule mod_headers.c>
   <FilesMatch "\.(html|xml|txt)$">
     Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+
+  # Счётчик посещений: ответ живой, ни браузеру, ни прокси его не кешировать.
+  <FilesMatch "\.php$">
+    Header set Cache-Control "no-store"
   </FilesMatch>
 
   # ---------- заголовки безопасности ----------

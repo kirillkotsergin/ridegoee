@@ -34,7 +34,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <!-- Пути к ассетам абсолютные: страница лежит в подкаталоге -->
-    <link rel="stylesheet" href="/styles.css?v=15" />
+    <link rel="stylesheet" href="/styles.css?v=16" />
 
     <script>
       document.documentElement.classList.add("js");
@@ -348,7 +348,14 @@
         </div>
       </div>
       <div class="container footer__bottom">
-        <p>© <span data-year>2026</span> RideGo · ridego.ee</p>
+        <div class="footer__legal">
+          <p>© <span data-year>2026</span> RideGo · ridego.ee</p>
+          <!-- Число подставляет script.js из /hits.php: без JS или без PHP строка остаётся скрытой -->
+          <p class="hits" data-hits hidden>
+            <span class="hits__dot" aria-hidden="true"></span>
+            Посещений: <span class="hits__value" data-hits-value>—</span>
+          </p>
+        </div>
         <p>Эстония, Таллинн</p>
       </div>
     </footer>
@@ -364,7 +371,7 @@
       <span>Заказать</span>
     </a>
 
-    <script src="/script.js?v=10" defer></script>
+    <script src="/script.js?v=11" defer></script>
 
     <!-- Разметка для поисковиков. Держим в согласии с текстом страницы. -->
     <script type="application/ld+json">

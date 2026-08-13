@@ -12,6 +12,31 @@
   var yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+  /* ---------- счётчик посещений ---------- */
+  /*  Считает сервер (hits.php), браузер только показывает число. Запрос идёт
+      отсюда, а не из разметки, — значит краулеры, не исполняющие JS, счётчик
+      не накручивают. Если PHP на хостинге недоступен или запрос не удался,
+      строка так и остаётся скрытой: пустого «Посещений: —» посетитель не увидит.  */
+
+  var hitsEl = document.querySelector("[data-hits]");
+
+  if (hitsEl && window.fetch) {
+    fetch("/hits.php", { credentials: "omit" })
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .then(function (data) {
+        if (!data || typeof data.total !== "number" || data.total < 1) return;
+
+        var valueEl = hitsEl.querySelector("[data-hits-value]");
+        if (valueEl) valueEl.textContent = data.total.toLocaleString("ru-RU");
+        hitsEl.hidden = false;
+      })
+      .catch(function () {
+        /* молча: счётчик не та вещь, из-за которой стоит шуметь в консоли */
+      });
+  }
+
   /* ---------- шапка при скролле ---------- */
 
   var header = document.getElementById("header");
