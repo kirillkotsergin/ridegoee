@@ -36,7 +36,7 @@
     <link rel="manifest" href="site.webmanifest" />
     <!-- ?v= — версия для кеша: статика кешируется на месяц, поэтому при
          правке styles.css или script.js номер надо увеличить. -->
-    <link rel="stylesheet" href="styles.css?v=6" />
+    <link rel="stylesheet" href="styles.css?v=7" />
 
     <!-- Ставим метку до отрисовки: анимации появления включаются только с JS -->
     <script>
@@ -209,6 +209,18 @@
                 Самый популярный маршрут. Погранпереход в центре города, пешая очередь
                 обычно короче автомобильной.
               </p>
+
+              <!-- ПРОВЕРЬ: цена за место в очереди и за сколько её нужно бронировать -->
+              <div class="route__addon">
+                <p class="route__addon-top">
+                  <span>Место в очереди на границе</span>
+                  <strong>+50 €</strong>
+                </p>
+                <p class="route__addon-note">
+                  Забронируем слот за вас — переход в назначенное время, без ожидания
+                  свободного окна.
+                </p>
+              </div>
               <button class="btn btn--ghost btn--full" data-order data-route="Таллинн — Нарва" type="button">
                 Заказать
               </button>
@@ -658,7 +670,7 @@
       </div>
     </dialog>
 
-    <script src="script.js?v=6" defer></script>
+    <script src="script.js?v=7" defer></script>
 
     <!-- Разметка для поисковиков. Держим в согласии с текстом страницы:
          меняешь цены или ответы FAQ — поправь и здесь. -->
