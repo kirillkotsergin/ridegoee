@@ -4,9 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Страница не найдена — RideGo</title>
+    <!-- noindex осознанно: страницы ошибок в индексе не нужны.
+         Но шапка и подвал здесь есть — иначе посетитель, попавший сюда по
+         старой ссылке, оказывается в тупике без навигации. -->
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#0b0f19" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="stylesheet" href="/styles.css?v=20" />
 
     <!-- Предзагрузка следующей страницы: браузер готовит её заранее — при
@@ -20,21 +24,100 @@
   </head>
 
   <body>
-    <main class="section" style="display: grid; min-height: 100vh; place-items: center">
-      <div class="container container--narrow" style="text-align: center">
-        <p class="eyebrow">Ошибка 404</p>
-        <h1>Такой страницы нет</h1>
-        <p class="section__lead">
-          Возможно, ссылка устарела. Вернитесь на главную — там направления, цены
-          и кнопка заказа.
-        </p>
-        <p style="margin-top: 28px">
+    <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+    <header class="header" id="header">
+      <div class="container header__inner">
+        <a class="logo" href="/" aria-label="RideGo — на главную">
+          <span class="logo__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 15.5h18M6 15.5v2.2M18 15.5v2.2M4.2 15.5l1.9-6.1A2.5 2.5 0 0 1 8.5 7.6h7a2.5 2.5 0 0 1 2.4 1.8l1.9 6.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </span>
+          <span class="logo__text">Ride<span>Go</span></span>
+        </a>
+
+        <nav class="nav" aria-label="Основная навигация">
+          <a href="/#routes">Направления</a>
+          <a href="/#car">Автомобиль</a>
+          <a href="/#faq">Вопросы</a>
+        </nav>
+
+        <div class="header__contact">
+          <a class="btn btn--accent btn--sm header__cta" href="tel:+37256277764" aria-label="Позвонить: +372 56277764">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.9l1.5 3.7-2 1.3a11 11 0 0 0 5 5l1.3-2 3.7 1.5v2.9a1.6 1.6 0 0 1-1.8 1.6A15.6 15.6 0 0 1 5 5.3 1.6 1.6 0 0 1 6.6 3.5Z" fill="currentColor"/></svg>
+            <span>+372 56277764</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="section" id="main">
+      <div class="container container--narrow">
+        <header class="section__head">
+          <p class="eyebrow">Ошибка 404</p>
+          <h1>Такой страницы нет</h1>
+          <p class="section__lead">
+            Возможно, ссылка устарела или в адресе опечатка. Ниже — все направления,
+            по которым мы возим; если нужного нет, напишите, посчитаем отдельно.
+          </p>
+        </header>
+
+        <ul class="crosslinks">
+          <li><a href="/transfer-tallinn-narva/"><span>Таллинн — Нарва</span><strong>130 €</strong></a></li>
+          <li><a href="/transfer-narva-tallinn/"><span>Нарва — Таллинн</span><strong>130 €</strong></a></li>
+          <li><a href="/transfer-tallinn-koidula/"><span>Таллинн — Койдула</span><strong>160 €</strong></a></li>
+          <li><a href="/transfer-koidula-tallinn/"><span>Койдула — Таллинн</span><strong>160 €</strong></a></li>
+          <li><a href="/transfer-tallinn-luhamaa/"><span>Таллинн — Лухамаа</span><strong>160 €</strong></a></li>
+          <li><a href="/transfer-luhamaa-tallinn/"><span>Лухамаа — Таллинн</span><strong>160 €</strong></a></li>
+          <li><a href="/transfer-tartu-koidula-luhamaa/"><span>Тарту — Койдула и Лухамаа</span><strong>80 €</strong></a></li>
+          <li><a href="/transfer-spb-ivangorod/"><span>По России: Петербург, Псков</span><strong>от 3000 ₽</strong></a></li>
+          <li><a href="/transfer-finlyandiya-rossiya/"><span>Из Финляндии в Россию</span><strong>6500 ₽</strong></a></li>
+          <li><a href="/kak-dobratsya-do-granicy/"><span>Как добраться до границы: все способы</span><strong>гид</strong></a></li>
+        </ul>
+
+        <div class="cta__actions" style="justify-content: center">
           <a class="btn btn--accent btn--lg" href="/">На главную</a>
-        </p>
-        <p style="margin-top: 20px">
-          <a class="link" href="tel:+37256277764">+372 56277764</a>
-        </p>
+          <a class="btn btn--wa btn--lg" href="https://wa.me/37256277764" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.2 1.2-1.9 1.2-.6 0-2.4-.3-4.6-2.3-2.2-2-2.7-3.7-2.8-4.3-.1-.7.4-1.7 1-1.9.3-.1.7 0 .9.3l.9 1.6c.1.3.1.6-.1.8l-.5.6c.5 1 1.5 2 2.5 2.5l.6-.5c.2-.2.5-.2.8-.1l1.6.8c.3.2.4.6.3.9Z" fill="currentColor"/></svg>
+            Написать в WhatsApp
+          </a>
+        </div>
       </div>
     </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <span class="logo__text">Ride<span>Go</span></span>
+          <p>Трансфер из Таллинна к погранпереходам Нарва, Койдула и Лухамаа.</p>
+        </div>
+        <div class="footer__col">
+          <h3>Контакты</h3>
+          <a href="tel:+37256277764">+372 56277764</a>
+          <a href="https://wa.me/37256277764" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://t.me/+37256277764" target="_blank" rel="noopener">Telegram</a>
+        </div>
+        <div class="footer__col">
+          <h3>Направления</h3>
+          <a href="/transfer-tallinn-narva/">Таллинн — Нарва</a>
+          <a href="/transfer-tallinn-koidula/">Таллинн — Койдула</a>
+          <a href="/transfer-tallinn-luhamaa/">Таллинн — Лухамаа</a>
+        </div>
+        <div class="footer__col">
+          <h3>Ещё направления</h3>
+          <a href="/transfer-spb-ivangorod/">Петербург — Ивангород, Псков</a>
+          <a href="/transfer-tartu-koidula-luhamaa/">Тарту — Койдула и Лухамаа</a>
+          <a href="/transfer-finlyandiya-rossiya/">Из Финляндии в Россию</a>
+        </div>
+        <div class="footer__col">
+          <h3>Полезное</h3>
+          <a href="/kak-dobratsya-do-granicy/">Как добраться до границы</a>
+          <a href="/#routes">Все направления и цены</a>
+        </div>
+      </div>
+      <div class="container footer__bottom">
+        <p>© <span data-year>2026</span> RideGo · ridego.ee</p>
+        <p>Эстония, Таллинн</p>
+      </div>
+    </footer>
   </body>
 </html>
