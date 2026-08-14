@@ -52,7 +52,7 @@
     <link rel="manifest" href="site.webmanifest" />
     <!-- ?v= — версия для кеша: статика кешируется на месяц, поэтому при
          правке styles.css или script.js номер надо увеличить. -->
-    <link rel="stylesheet" href="styles.css?v=18" />
+    <link rel="stylesheet" href="styles.css?v=19" />
 
     <!-- Ставим метку до отрисовки: анимации появления включаются только с JS -->
     <script>
@@ -149,70 +149,169 @@
             </ul>
           </div>
 
+          <!-- Иллюстрация в герое: ночное шоссе. Чистый SVG + CSS-анимации,
+               ни картинок, ни скриптов. Декоративная, поэтому aria-hidden.
+               Что двигается: кузов покачивается на подвеске, колёса крутятся,
+               дорожная разметка идёт двумя полосами с разной скоростью (это и
+               даёт ощущение глубины), мимо проносятся световые штрихи, фара и
+               задний фонарь пульсируют. Всё внутри рамки: группы обрезаны
+               по frameClip, иначе при overflow: visible штрихи вылезали бы
+               на соседние блоки.
+               ВАЖНО: детали кузова обрезаны по bodyClip — это гарантия, что
+               фара, фонарь и арки не «выедут» за силуэт, как было раньше. -->
           <div class="hero__visual reveal" data-delay="3" aria-hidden="true">
-            <svg class="car" viewBox="0 0 640 300" role="img">
+            <svg class="car" viewBox="0 0 640 300">
               <defs>
                 <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stop-color="#f8fafc" />
-                  <stop offset="0.55" stop-color="#cbd5e1" />
+                  <stop offset="0.5" stop-color="#d3dbe6" />
+                  <stop offset="1" stop-color="#8b9cb3" />
+                </linearGradient>
+                <linearGradient id="glassGrad" x1="0" y1="0" x2="0.4" y2="1">
+                  <stop offset="0" stop-color="#0d1526" />
+                  <stop offset="1" stop-color="#33415a" />
+                </linearGradient>
+                <linearGradient id="rimGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#eef2f7" />
                   <stop offset="1" stop-color="#8fa0b6" />
                 </linearGradient>
-                <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stop-color="#1e293b" />
-                  <stop offset="1" stop-color="#475569" />
+                <linearGradient id="lampGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stop-color="#fffdf3" />
+                  <stop offset="1" stop-color="#ffd27a" />
+                </linearGradient>
+                <linearGradient id="tailGrad" x1="1" y1="0" x2="0" y2="0">
+                  <stop offset="0" stop-color="#ff6b6b" />
+                  <stop offset="1" stop-color="#b03636" />
+                </linearGradient>
+                <!-- Свет фары: плотный у самой фары, растворяется к краю кадра -->
+                <linearGradient id="beamGrad" x1="1" y1="0" x2="0" y2="0">
+                  <stop offset="0" stop-color="#ffe9a8" stop-opacity="0.32" />
+                  <stop offset="1" stop-color="#ffe9a8" stop-opacity="0" />
                 </linearGradient>
                 <radialGradient id="shadowGrad">
-                  <stop offset="0" stop-color="#000" stop-opacity="0.55" />
+                  <stop offset="0" stop-color="#000" stop-opacity="0.6" />
                   <stop offset="1" stop-color="#000" stop-opacity="0" />
                 </radialGradient>
+                <radialGradient id="lampGlow">
+                  <stop offset="0" stop-color="#ffe9a8" stop-opacity="0.5" />
+                  <stop offset="1" stop-color="#ffe9a8" stop-opacity="0" />
+                </radialGradient>
+                <radialGradient id="tailGlow">
+                  <stop offset="0" stop-color="#ff6b6b" stop-opacity="0.45" />
+                  <stop offset="1" stop-color="#ff6b6b" stop-opacity="0" />
+                </radialGradient>
+
+                <clipPath id="frameClip">
+                  <rect x="0" y="0" width="640" height="300" />
+                </clipPath>
+                <clipPath id="bodyClip">
+                  <path
+                    d="M56 214c-6 0-10-6-9-14l2-18c1-10 7-18 17-21l38-11 92-7c3 0 7-2 10-5l45-37c4-3 9-5 14-5h122c8 0 15 3 20 8l54 36 82 10c16 2 28 8 34 17 4 6 6 14 6 23v16c0 5-4 8-9 8Z"
+                  />
+                </clipPath>
               </defs>
 
-              <!-- дорога -->
-              <ellipse cx="320" cy="252" rx="250" ry="22" fill="url(#shadowGrad)" />
-              <g class="road">
-                <line x1="-60" y1="268" x2="30" y2="268" />
-                <line x1="90" y1="268" x2="180" y2="268" />
-                <line x1="240" y1="268" x2="330" y2="268" />
-                <line x1="390" y1="268" x2="480" y2="268" />
-                <line x1="540" y1="268" x2="630" y2="268" />
+              <!-- Световые штрихи: проносятся мимо, часть уходит за кузов -->
+              <g class="streaks" clip-path="url(#frameClip)">
+                <line class="streak" style="--d: 0s" x1="430" y1="112" x2="530" y2="112" />
+                <line class="streak" style="--d: 0.18s" x1="470" y1="200" x2="580" y2="200" />
+                <line class="streak" style="--d: 0.35s" x1="520" y1="138" x2="638" y2="138" />
+                <line class="streak" style="--d: 0.52s" x1="510" y1="232" x2="620" y2="232" />
+                <line class="streak" style="--d: 0.7s" x1="560" y1="170" x2="638" y2="170" />
               </g>
+
+              <!-- Дальняя полоса разметки: тоньше, тусклее и медленнее -->
+              <g class="road road--far" clip-path="url(#frameClip)">
+                <line x1="-30" y1="238" x2="30" y2="238" />
+                <line x1="120" y1="238" x2="180" y2="238" />
+                <line x1="270" y1="238" x2="330" y2="238" />
+                <line x1="420" y1="238" x2="480" y2="238" />
+                <line x1="570" y1="238" x2="630" y2="238" />
+              </g>
+
+              <!-- Свет от фары и заднего фонаря — вне обрезки кузова -->
+              <g clip-path="url(#frameClip)">
+                <path class="beam" d="M100 156 -30 116 -30 210 100 182Z" fill="url(#beamGrad)" />
+                <ellipse class="lamp" cx="82" cy="169" rx="42" ry="26" fill="url(#lampGlow)" />
+                <ellipse class="tail" cx="576" cy="173" rx="30" ry="18" fill="url(#tailGlow)" />
+              </g>
+
+              <!-- Тень на асфальте: кузов покачивается, тень дышит вместе с ним -->
+              <ellipse class="car__shadow" cx="320" cy="252" rx="248" ry="20" fill="url(#shadowGrad)" />
 
               <g class="car__body">
-                <!-- кузов -->
+                <!-- Силуэт: длинный капот, покатое лобовое, короткий багажник -->
                 <path
-                  d="M42 196c-4-14 2-26 14-30l52-16 44-38c9-8 21-12 33-12h94c14 0 27 6 36 17l30 36 92 12c22 3 38 13 45 27 4 8 5 16 4 24H42Z"
+                  d="M56 214c-6 0-10-6-9-14l2-18c1-10 7-18 17-21l38-11 92-7c3 0 7-2 10-5l45-37c4-3 9-5 14-5h122c8 0 15 3 20 8l54 36 82 10c16 2 28 8 34 17 4 6 6 14 6 23v16c0 5-4 8-9 8Z"
                   fill="url(#bodyGrad)"
                 />
-                <!-- линия окон -->
-                <path
-                  d="M150 112c8-7 18-11 29-11h84c12 0 24 5 32 15l24 30H120Z"
-                  fill="url(#glassGrad)"
-                />
-                <path d="M196 101v45" stroke="#0b0f19" stroke-width="4" opacity="0.6" />
-                <!-- подштамповка -->
-                <path d="M52 170h520" stroke="#64748b" stroke-width="2" opacity="0.5" />
-                <!-- фара и фонарь -->
-                <path class="lamp" d="M44 158h34a10 10 0 0 1 0 20H46Z" fill="#fef3c7" />
-                <path d="M596 160h-30a9 9 0 0 0 0 18h32Z" fill="#f87171" />
-                <!-- ручки -->
-                <rect x="182" y="162" width="26" height="5" rx="2.5" fill="#94a3b8" />
-                <rect x="286" y="162" width="26" height="5" rx="2.5" fill="#94a3b8" />
+
+                <g clip-path="url(#bodyClip)">
+                  <!-- Колёсные арки: тёмные, чтобы колёса сидели в нишах -->
+                  <circle cx="170" cy="206" r="51" fill="#0a0e17" />
+                  <circle cx="468" cy="206" r="51" fill="#0a0e17" />
+
+                  <!-- Порог: затемнение снизу, оно и «ставит» машину на дорогу -->
+                  <path d="M40 202h560v20H40Z" fill="#0b1220" opacity="0.34" />
+
+                  <!-- Стёкла: две боковины, между ними стойка цвета кузова -->
+                  <path d="M214 141 258 106h58v35Z" fill="url(#glassGrad)" />
+                  <path d="M330 106h56l46 35H330Z" fill="url(#glassGrad)" />
+
+                  <!-- Подштамповка по борту и линия ниже -->
+                  <path d="M70 176h508" stroke="#ffffff" stroke-width="1.6" opacity="0.2" />
+                  <path d="M108 194h452" stroke="#ffffff" stroke-width="1.4" opacity="0.08" />
+
+                  <!-- Стыки дверей -->
+                  <g stroke="#64748b" stroke-width="1.5" opacity="0.35">
+                    <path d="M232 150v58M324 148v60" />
+                  </g>
+
+                  <!-- Ручки -->
+                  <rect x="278" y="158" width="24" height="5" rx="2.5" fill="#9fb0c6" />
+                  <rect x="364" y="158" width="24" height="5" rx="2.5" fill="#9fb0c6" />
+
+                  <!-- Фара и фонарь. Формы скошенные, потому что кромка капота
+                       и задка идут под наклоном: прямоугольник по этим
+                       координатам вылезал бы за силуэт и обрезался. Обрезка по
+                       bodyClip оставлена как страховка. -->
+                  <path class="lamp" d="M58 174 98 153 103 163 63 185Z" fill="url(#lampGrad)" />
+                  <path class="tail" d="M552 158 570 168 570 186 552 180Z" fill="url(#tailGrad)" />
+                </g>
+
+                <!-- Зеркало вынесено из обрезки намеренно: в профиль оно
+                     выступает вперёд за кромку капота, и обрезка его срезала бы.
+                     Внутри .car__body — значит покачивается вместе с кузовом. -->
+                <path d="M210 140 192 133 190 141 208 148Z" fill="#5c6b82" />
               </g>
 
-              <!-- колёса -->
-              <g class="wheel" style="--cx: 148px; --cy: 206px">
-                <circle cx="148" cy="206" r="46" fill="#0f172a" />
-                <circle cx="148" cy="206" r="27" fill="#cbd5e1" />
-                <g stroke="#0f172a" stroke-width="5" stroke-linecap="round">
-                  <path d="M148 186v40M128 206h40M134 192l28 28M162 192l-28 28" />
+              <!-- Колёса: пятилучевые диски, крутятся вокруг своего центра -->
+              <g class="wheel">
+                <circle cx="170" cy="206" r="44" fill="#0c1220" />
+                <circle cx="170" cy="206" r="44" fill="none" stroke="#1e2942" stroke-width="3" />
+                <circle cx="170" cy="206" r="26" fill="url(#rimGrad)" />
+                <g stroke="#0c1220" stroke-width="6" stroke-linecap="round">
+                  <path d="M170 206 170 183M170 206 192 199M170 206 184 225M170 206 156 225M170 206 148 199" />
                 </g>
+                <circle cx="170" cy="206" r="6" fill="#0c1220" />
               </g>
-              <g class="wheel" style="--cx: 470px; --cy: 206px">
-                <circle cx="470" cy="206" r="46" fill="#0f172a" />
-                <circle cx="470" cy="206" r="27" fill="#cbd5e1" />
-                <g stroke="#0f172a" stroke-width="5" stroke-linecap="round">
-                  <path d="M470 186v40M450 206h40M456 192l28 28M484 192l-28 28" />
+              <g class="wheel">
+                <circle cx="468" cy="206" r="44" fill="#0c1220" />
+                <circle cx="468" cy="206" r="44" fill="none" stroke="#1e2942" stroke-width="3" />
+                <circle cx="468" cy="206" r="26" fill="url(#rimGrad)" />
+                <g stroke="#0c1220" stroke-width="6" stroke-linecap="round">
+                  <path d="M468 206 468 183M468 206 490 199M468 206 482 225M468 206 454 225M468 206 446 199" />
                 </g>
+                <circle cx="468" cy="206" r="6" fill="#0c1220" />
+              </g>
+
+              <!-- Ближняя полоса разметки: толще, ярче и быстрее дальней -->
+              <g class="road road--near" clip-path="url(#frameClip)">
+                <line x1="-60" y1="274" x2="30" y2="274" />
+                <line x1="90" y1="274" x2="180" y2="274" />
+                <line x1="240" y1="274" x2="330" y2="274" />
+                <line x1="390" y1="274" x2="480" y2="274" />
+                <line x1="540" y1="274" x2="630" y2="274" />
               </g>
             </svg>
           </div>

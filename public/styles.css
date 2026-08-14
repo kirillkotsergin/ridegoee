@@ -512,25 +512,65 @@ svg {
   filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.5));
 }
 
+/* Кузов покачивается на подвеске, колёса при этом остаются на дороге —
+   если поднимать их вместе с кузовом, машина «взлетает». */
 .car__body {
   animation: bob 3.4s ease-in-out infinite;
+}
+
+/* Тень дышит вместе с кузовом: машина приподнялась — тень чуть ужалась.
+   Именно это превращает покачивание в подвеску, а не в дрожание. */
+.car__shadow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: shadow-breathe 3.4s ease-in-out infinite;
 }
 
 .wheel {
   transform-box: fill-box;
   transform-origin: center;
-  animation: spin 1.1s linear infinite;
+  animation: spin 0.95s linear infinite;
 }
 
+/* Разметка идёт двумя полосами с разной скоростью — дальняя отстаёт от
+   ближней, и кадр читается объёмным. Шаг штрихов у обеих 150 единиц,
+   поэтому одного keyframes хватает на две полосы. */
 .road line {
-  stroke: rgba(255, 255, 255, 0.22);
-  stroke-width: 5;
   stroke-linecap: round;
-  animation: dash 0.7s linear infinite;
+}
+.road--far line {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 3;
+  animation: dash 1.6s linear infinite;
+}
+.road--near line {
+  stroke: rgba(255, 255, 255, 0.24);
+  stroke-width: 6;
+  animation: dash 0.62s linear infinite;
+}
+
+/* Световые штрихи, проносящиеся мимо. Задержка у каждого своя — задана
+   инлайново через --d, чтобы не плодить пять почти одинаковых классов. */
+.streak {
+  stroke: rgba(255, 255, 255, 0.55);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  animation: streak 1.6s linear infinite;
+  animation-delay: var(--d, 0s);
 }
 
 .lamp {
   animation: glow 3.4s ease-in-out infinite;
+}
+
+.beam {
+  animation: beam 3.4s ease-in-out infinite;
+}
+
+/* Задний фонарь пульсирует в своём ритме: одинаковый период со фарой
+   выглядел бы как мигание всей машины. */
+.tail {
+  animation: tail 2.6s ease-in-out infinite;
 }
 
 @keyframes bob {
@@ -540,6 +580,18 @@ svg {
   }
   50% {
     translate: 0 -5px;
+  }
+}
+
+@keyframes shadow-breathe {
+  0%,
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+  50% {
+    opacity: 0.78;
+    scale: 0.94 1;
   }
 }
 
@@ -555,14 +607,50 @@ svg {
   }
 }
 
+@keyframes streak {
+  0% {
+    translate: 0 0;
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.5;
+  }
+  88% {
+    opacity: 0.5;
+  }
+  100% {
+    translate: -760px 0;
+    opacity: 0;
+  }
+}
+
 @keyframes glow {
   0%,
   100% {
-    opacity: 0.85;
+    opacity: 0.8;
   }
   50% {
     opacity: 1;
-    filter: drop-shadow(0 0 14px rgba(254, 243, 199, 0.85));
+  }
+}
+
+@keyframes beam {
+  0%,
+  100% {
+    opacity: 0.72;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes tail {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
   }
 }
 
