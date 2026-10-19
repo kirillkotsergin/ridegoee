@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+/*
+ * Палитра — те же значения, что в :root у public/styles.css. Переводы и
+ * русские страницы должны выглядеть одним сайтом, поэтому цвета не
+ * «похожие», а ровно те же. Меняете цвет там — меняйте и здесь.
+ *
+ * Контраст (WCAG AA ≥ 4.5:1) посчитан для русской версии и переносится как
+ * есть: --dim #8290a7 даёт от 5.05:1 на surface-2 до 6.09:1 на bg.
+ */
+@theme {
+  --color-bg: #080b12;
+  --color-bg-alt: #0c111c;
+  --color-surface: #121927;
+  --color-surface-2: #18202f;
+  --color-line: rgb(255 255 255 / 0.09);
+  --color-line-strong: rgb(255 255 255 / 0.16);
+
+  --color-text: #edf1f7;
+  --color-muted: #9aa6b8;
+  --color-dim: #8290a7;
+
+  --color-accent: #ffb524;
+  --color-accent-2: #ff8a3d;
+  --color-on-accent: #1a1204;
+  --color-wa: #25d366;
+  --color-on-wa: #05240f;
+  --color-tg: #2aabee;
+  --color-on-tg: #04202e;
+
+  --radius-card: 18px;
+  --radius-card-lg: 26px;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+    font-size: 17px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3 {
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
+  h1 {
+    font-size: clamp(2.4rem, 6.2vw, 4.1rem);
+  }
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+  }
+  h3 {
+    font-size: 1.12rem;
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    @apply bg-accent text-on-accent;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  @media (max-width: 620px) {
+    body {
+      font-size: 16px;
+    }
+  }
+}
+
+/*
+ * Несколько классов, которые повторяются в десятках мест и неудобны как
+ * набор утилит. Всё внутри @layer components — иначе правило вне слоя
+ * перебивало бы любую утилиту Tailwind (урок estoniatransfer, раздел 3).
+ */
+@layer components {
+  .grad {
+    background: linear-gradient(105deg, var(--color-accent), var(--color-accent-2) 55%, #ffd98a);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Ссылки внутри текста из данных (set:html): классы туда не вписать */
+  .prose-links a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-decoration-color: rgb(255 181 36 / 0.4);
+    text-underline-offset: 3px;
+  }
+  .prose-links a:hover {
+    text-decoration-color: var(--color-accent);
+  }
+  .prose-links strong {
+    color: var(--color-text);
+  }
+
+  /* Стрелка у <summary>: маркер браузера прячем, рисуем свой */
+  .faq-item summary {
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item summary::after {
+    content: "";
+    flex: none;
+    width: 11px;
+    height: 11px;
+    border-right: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    rotate: 45deg;
+    transition: rotate 0.3s var(--ease-soft);
+  }
+  .faq-item[open] summary::after {
+    rotate: 225deg;
+  }
+
+  /* Галочка у пилюль «что входит в цену» */
+  .perk-check::before {
+    content: "";
+    flex: none;
+    width: 9px;
+    height: 5px;
+    border-left: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    rotate: -45deg;
+    translate: 0 -2px;
+  }
+
+  /*
+   * Появление при скролле. Класс .js на <html> ставит скрипт в <head>, а
+   * .is-visible — /script.js (общий с русскими страницами). Без JS блоки
+   * видны сразу.
+   */
+  html.js .reveal {
+    opacity: 0;
+    translate: 0 16px;
+    transition: opacity 0.36s var(--ease-soft), translate 0.36s var(--ease-soft);
+    transition-delay: calc(var(--d, 0) * 40ms);
+  }
+  html.js .reveal.is-visible {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* Шапка темнеет после прокрутки — .is-stuck ставит /script.js */
+  .site-header.is-stuck {
+    border-bottom-color: var(--color-line);
+    background: rgb(8 11 18 / 0.92);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html.js .reveal {
+    opacity: 1;
+    translate: none;
+  }
+}

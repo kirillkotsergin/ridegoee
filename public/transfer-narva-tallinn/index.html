@@ -12,12 +12,21 @@
       content="Трансфер Нарва — Таллинн: 130 € за автомобиль, 2 ч 30 мин в пути. Встречаем у пункта пропуска и везём в аэропорт Таллинна, к отелю или в круизный порт."
     />
     <link rel="canonical" href="https://ridego.ee/transfer-narva-tallinn/" />
+    <!-- Языковые версии: набор совпадает с src/layouts/Base.astro -->
+    <link rel="alternate" hreflang="ru" href="https://ridego.ee/transfer-narva-tallinn/" />
+    <link rel="alternate" hreflang="en" href="https://ridego.ee/en/transfer-narva-tallinn/" />
+    <link rel="alternate" hreflang="fi" href="https://ridego.ee/fi/kuljetus-narva-tallinna/" />
+    <link rel="alternate" hreflang="et" href="https://ridego.ee/et/transfeer-narva-tallinn/" />
+    <link rel="alternate" hreflang="x-default" href="https://ridego.ee/en/transfer-narva-tallinn/" />
     <!-- Разрешаем полный сниппет и крупное превью: на этом держатся и
          обычные сниппеты, и пересказы в ИИ-поиске. -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:locale:alternate" content="fi_FI" />
+    <meta property="og:locale:alternate" content="et_EE" />
     <meta property="og:site_name" content="RideGo" />
     <meta property="og:url" content="https://ridego.ee/transfer-narva-tallinn/" />
     <meta property="og:title" content="Трансфер Нарва — Таллинн: 130 € за машину" />
@@ -36,7 +45,7 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <!-- Пути к ассетам абсолютные: страница лежит в подкаталоге -->
-    <link rel="stylesheet" href="/styles.css?v=21" />
+    <link rel="stylesheet" href="/styles.css?v=22" />
 
     <script>
       document.documentElement.classList.add("js");
@@ -71,6 +80,13 @@
         </nav>
 
         <div class="header__contact">
+          <!-- Переключатель языков: та же страница на другом языке -->
+          <nav class="langs" aria-label="Язык">
+            <span class="langs__item is-current" aria-current="page" title="Русский">RU</span>
+            <a class="langs__item" href="/en/transfer-narva-tallinn/" hreflang="en" lang="en" title="English">EN</a>
+            <a class="langs__item" href="/fi/kuljetus-narva-tallinna/" hreflang="fi" lang="fi" title="Suomi">FI</a>
+            <a class="langs__item" href="/et/transfeer-narva-tallinn/" hreflang="et" lang="et" title="Eesti">ET</a>
+          </nav>
           <!-- Зелёный мигающий индикатор рядом с номером. На экранах уже 1120px
                скрыт (в шапке нет места). -->
           <a class="live-badge" href="https://wa.me/37256277764" target="_blank" rel="noopener">
@@ -606,7 +622,7 @@
       <span>Заказать</span>
     </a>
 
-    <script src="/script.js?v=11" defer></script>
+    <script src="/script.js?v=12" defer></script>
 
     <!-- Разметка для поисковиков. FAQPage держим дословно в согласии с блоком
          «Частые вопросы» выше. -->

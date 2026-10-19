@@ -29,7 +29,8 @@
         if (!data || typeof data.total !== "number" || data.total < 1) return;
 
         var valueEl = hitsEl.querySelector("[data-hits-value]");
-        if (valueEl) valueEl.textContent = data.total.toLocaleString("ru-RU");
+        /* формат числа по языку страницы: «1 234» по-русски, «1,234» по-английски */
+        if (valueEl) valueEl.textContent = data.total.toLocaleString(document.documentElement.lang || "ru");
         hitsEl.hidden = false;
       })
       .catch(function () {

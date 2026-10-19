@@ -1,0 +1,317 @@
+---
+/**
+ * Шаблон посадочной страницы маршрута для переводов. Данные — Landing из
+ * src/data/landing.ts; вид — как у русских страниц в public/.
+ */
+import Base from "./Base.astro";
+import Icon from "../components/Icon.astro";
+import { btn } from "../styles/btn";
+import { facts, pathFor, site, ui, wa, type BuiltLang, type PageId } from "../i18n/ui";
+import type { Landing } from "../data/landing";
+
+interface Props {
+  lang: BuiltLang;
+  page: PageId;
+  data: Landing;
+}
+const { lang, page, data } = Astro.props;
+const t = ui[lang];
+const url = `${site}${pathFor(page, lang)}`;
+
+const container = "mx-auto w-full max-w-[1180px] px-[clamp(18px,5vw,40px)]";
+const narrow = "mx-auto w-full max-w-[800px] px-[clamp(18px,5vw,40px)]";
+const card = "rounded-[var(--radius-card)] border border-line bg-surface";
+const eyebrow = "mb-3.5 text-[0.78rem] font-bold tracking-[0.16em] text-accent uppercase";
+
+/** Текст ответа для FAQPage — без тегов, но с теми же словами */
+const plain = (html: string) => html.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: data.schema.breadcrumbHome, item: `${site}/` },
+        { "@type": "ListItem", position: 2, name: data.crumb, item: url },
+      ],
+    },
+    {
+      "@type": "Service",
+      "@id": `${url}#service`,
+      name: data.schema.name,
+      alternateName: data.schema.alternateName,
+      serviceType: data.schema.serviceType,
+      description: data.schema.description,
+      inLanguage: lang,
+      provider: { "@type": "TaxiService", name: "RideGo", telephone: facts.phoneHref.replace("tel:", ""), url: `${site}/` },
+      areaServed: data.schema.areaServed.map((name) => ({ "@type": "City", name })),
+      offers: data.schema.offers.map((o) => ({
+        "@type": "Offer",
+        name: o.name,
+        price: String(o.price),
+        priceCurrency: "EUR",
+        url,
+        availability: "https://schema.org/InStock",
+      })),
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${url}#faq`,
+      inLanguage: lang,
+      mainEntity: data.faq.items.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: plain(f.a) },
+      })),
+    },
+  ],
+};
+---
+
+<Base
+  lang={lang}
+  page={page}
+  title={data.meta.title}
+  description={data.meta.description}
+  ogTitle={data.meta.ogTitle}
+  ogDescription={data.meta.ogDescription}
+  waText={data.hero.waText}
+  jsonLd={jsonLd}
+>
+  <!-- ============ ГЕРОЙ ============ -->
+  <section class="relative overflow-hidden pt-[clamp(50px,8vw,96px)] pb-[clamp(60px,9vw,110px)]">
+    <div
+      class="pointer-events-none absolute -top-[30%] left-1/2 aspect-square w-[min(1100px,130vw)] -translate-x-1/2 bg-[radial-gradient(circle,rgb(255_165_36/0.16),transparent_62%)]"
+      aria-hidden="true"
+    >
+    </div>
+    <div class={`relative ${container}`}>
+      <nav class="mb-[26px] flex flex-wrap items-center gap-2.5 text-[0.88rem] text-dim" aria-label={t.crumbsLabel}>
+        <a href="/" class="border-b border-transparent text-muted hover:border-current hover:text-accent">{t.home}</a>
+        <span aria-hidden="true">→</span>
+        <span>{data.crumb}</span>
+      </nav>
+
+      <p class={`reveal ${eyebrow}`}>{data.hero.eyebrow}</p>
+      <h1 class="reveal mb-[22px]" data-delay="1">
+        {data.hero.h1[0]} <span class="grad">{data.hero.h1[1]}</span>
+      </h1>
+      <p class="reveal max-w-[54ch] text-[clamp(1.02rem,1.4vw,1.14rem)] text-muted" data-delay="2">{data.hero.lead}</p>
+
+      <div class={`reveal prose-links mt-[26px] max-w-[880px] border-l-[3px] border-l-accent px-6 py-[22px] ${card}`} data-delay="3">
+        {data.hero.answer.map((p, i) => <p class:list={["text-muted", i > 0 && "mt-3 text-[0.94rem]"]} set:html={p} />)}
+      </div>
+
+      <div class="reveal mt-8 flex flex-wrap items-center gap-x-[22px] gap-y-4" data-delay="4">
+        <a href={wa(data.hero.waText)} target="_blank" rel="noopener" class={btn("accent", "lg")}>
+          <Icon name="wa" />
+          {t.orderWa}
+        </a>
+        <p class="text-[0.92rem] text-dim">
+          {t.or} <a class="border-b border-dashed border-current font-semibold text-accent" href={facts.telegram} target="_blank" rel="noopener">Telegram</a>{" "}
+          {t.and} <a class="border-b border-dashed border-current font-semibold text-accent" href={facts.phoneHref}>{facts.phone}</a>
+        </p>
+      </div>
+
+      <ul class="reveal mt-10 flex flex-wrap gap-x-[34px] gap-y-3.5 border-t border-line pt-[22px] max-[620px]:gap-x-6" data-delay="5">
+        {
+          data.hero.stats.map(([value, label]) => (
+            <li class="flex flex-col">
+              <strong class="text-[1.28rem] tracking-[-0.02em]">{value}</strong>
+              <span class="text-[0.86rem] text-dim">{label}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <ul class="reveal mt-6 flex flex-wrap gap-x-3 gap-y-2.5" data-delay="6">
+        {
+          data.hero.perks.map((p) => (
+            <li class="perk-check flex items-center gap-2 rounded-full border border-line bg-surface px-[15px] py-2 text-[0.88rem] text-muted">{p}</li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ СЕКЦИИ ============ -->
+  {
+    data.sections.map((s) => (
+      <section
+        id={s.id}
+        class:list={["relative py-[clamp(64px,9vw,120px)]", s.alt && "border-y border-line bg-bg-alt"]}
+      >
+        <div class={s.narrow ? narrow : container}>
+          <header class="reveal mb-[clamp(36px,5vw,60px)] max-w-[680px]">
+            <p class={eyebrow}>{s.eyebrow}</p>
+            <h2>{s.title}</h2>
+            {s.lead && <p class="mt-4 text-[1.06rem] text-muted">{s.lead}</p>}
+          </header>
+
+          {s.blocks.map((b) => {
+            if (b.type === "text")
+              return (
+                <>
+                  {b.h3 && <h3 class="reveal mt-[42px] mb-3.5 text-[clamp(1.1rem,2vw,1.28rem)] first:mt-0">{b.h3}</h3>}
+                  <p class="reveal prose-links text-muted [&+p]:mt-4" set:html={b.html} />
+                </>
+              );
+            if (b.type === "tip")
+              return (
+                <p
+                  class="reveal prose-links mt-[22px] rounded-[var(--radius-card)] border border-accent/20 bg-accent/[0.08] px-[18px] py-[15px] text-[0.92rem] text-muted"
+                  set:html={b.html}
+                />
+              );
+            if (b.type === "table")
+              return (
+                <div class={`reveal overflow-x-auto ${card}`}>
+                  <table class="w-full min-w-[720px] border-collapse text-left text-[0.92rem]">
+                    <caption class="px-5 pt-4 text-left text-[0.85rem] text-dim">{b.caption}</caption>
+                    <thead>
+                      <tr>
+                        {b.cols.map((c) => (
+                          <th scope="col" class="px-[18px] py-3.5 text-[0.74rem] font-bold tracking-[0.12em] whitespace-nowrap text-accent uppercase">
+                            {c}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {b.rows.map(([head, ...cells]) => (
+                        <tr class="border-t border-line transition-colors hover:bg-surface-2">
+                          <th scope="row" class="px-[18px] py-3.5 align-top font-semibold text-text">{head}</th>
+                          {cells.map((c) => (
+                            <td class="prose-links px-[18px] py-3.5 align-top text-muted" set:html={c} />
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              );
+            if (b.type === "steps")
+              return (
+                <ol class="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-[22px]">
+                  {b.items.map((it, i) => (
+                    <li
+                      class={`reveal relative overflow-hidden px-[26px] py-7 transition duration-300 hover:border-accent/40 motion-safe:hover:-translate-y-1 ${card}`}
+                      data-delay={String(i + 1)}
+                    >
+                      <span class="grad mb-3.5 block text-[2rem] font-extrabold tracking-[-0.05em]" aria-hidden="true">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h3 class="mb-2">{it.title}</h3>
+                      <p class="text-[0.95rem] text-muted">{it.text}</p>
+                    </li>
+                  ))}
+                </ol>
+              );
+            if (b.type === "details")
+              return (
+                <div class="grid gap-3">
+                  {b.items.map((it, i) => (
+                    <details
+                      class={`faq-item reveal overflow-hidden transition-colors open:border-accent/35 ${card}`}
+                      data-delay={String(i + 1)}
+                      open={it.open}
+                    >
+                      <summary class="flex cursor-pointer items-center justify-between gap-4 px-[22px] py-[19px] font-semibold">{it.title}</summary>
+                      <p class="prose-links px-[22px] pb-5 text-[0.97rem] text-muted" set:html={it.html} />
+                    </details>
+                  ))}
+                </div>
+              );
+            if (b.type === "photo")
+              return (
+                <figure class={`reveal mb-6 overflow-hidden ${card}`}>
+                  <img src={b.src} alt={b.alt} width={b.width} height={b.height} loading="lazy" class="h-auto w-full" />
+                  <figcaption class="px-[18px] py-[13px] text-[0.87rem] text-dim">{b.caption}</figcaption>
+                </figure>
+              );
+            return (
+              <div class="reveal mt-[34px] flex flex-wrap gap-3.5">
+                <a href={wa(b.waText)} target="_blank" rel="noopener" class={btn("wa", "lg")}>
+                  <Icon name="wa" />
+                  {b.label}
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- ============ FAQ (тот же массив уходит в FAQPage) ============ -->
+  <section id="faq" class="relative border-y border-line bg-bg-alt py-[clamp(64px,9vw,120px)]">
+    <div class={narrow}>
+      <header class="reveal mb-[clamp(36px,5vw,60px)] max-w-[680px]">
+        <p class={eyebrow}>{data.faq.eyebrow}</p>
+        <h2>{data.faq.title}</h2>
+      </header>
+      <div class="grid gap-3">
+        {
+          data.faq.items.map((f, i) => (
+            <details class={`faq-item reveal overflow-hidden transition-colors open:border-accent/35 ${card}`} data-delay={String(i + 1)}>
+              <summary class="flex cursor-pointer items-center justify-between gap-4 px-[22px] py-[19px] font-semibold">{f.q}</summary>
+              <p class="prose-links px-[22px] pb-5 text-[0.97rem] text-muted" set:html={f.a} />
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ДРУГИЕ НАПРАВЛЕНИЯ ============ -->
+  <section class="relative py-[clamp(64px,9vw,120px)]">
+    <div class={container}>
+      <header class="reveal mb-[clamp(36px,5vw,60px)] max-w-[680px]">
+        <p class={eyebrow}>{data.links.eyebrow}</p>
+        <h2>{data.links.title}</h2>
+        {/* Пояснение про WhatsApp — только пока есть карточки без перевода */}
+        {data.links.note && data.links.items.some((l) => !(l.page && pathFor(l.page, lang))) && (
+          <p class="mt-4 text-[1.06rem] text-muted">{data.links.note}</p>
+        )}
+      </header>
+      <ul class="reveal grid grid-cols-[repeat(auto-fit,minmax(260px,1fr))] gap-3">
+        {
+          data.links.items.map((l) => {
+            // Перевода страницы нет — карточка ведёт в WhatsApp с готовым
+            // текстом, а не на русскую страницу. Появится перевод в реестре
+            // pages — ссылка станет обычной сама.
+            const href = (l.page && pathFor(l.page, lang)) || wa(l.waText);
+            const external = href.startsWith("https://wa.me/");
+            return (
+              <li>
+                <a
+                  href={href}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener" : undefined}
+                  class={`flex items-baseline justify-between gap-4 px-5 py-4 transition duration-250 hover:border-accent hover:bg-surface-2 motion-safe:hover:-translate-y-0.5 ${card}`}
+                >
+                  <span>{l.label}</span>
+                  <strong class="whitespace-nowrap text-accent">{l.price}</strong>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="relative overflow-hidden border-t border-line bg-linear-150 from-accent/12 to-bg-alt to-55% py-[clamp(60px,8vw,100px)]">
+    <div class={`reveal text-center ${container}`}>
+      <h2>{data.cta.title}</h2>
+      <p class="mx-auto mt-4 max-w-[46ch] text-muted">{data.cta.text}</p>
+      <div class="mt-[34px] flex flex-wrap justify-center gap-3.5">
+        <a href={wa(data.hero.waText)} target="_blank" rel="noopener" class={btn("wa", "lg")}><Icon name="wa" />WhatsApp</a>
+        <a href={facts.telegram} target="_blank" rel="noopener" class={btn("tg", "lg")}><Icon name="tg" />Telegram</a>
+        <a href={facts.phoneHref} class={btn("ghost", "lg")}>{data.cta.call}</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,203 @@
+---
+/**
+ * Общий каркас переводов: <head> с SEO, шапка с переключателем языков,
+ * подвал, плавающая кнопка заказа на телефоне.
+ *
+ * Вёрстка повторяет русские страницы (public/*.html): те же блоки, отступы и
+ * цвета, только классами Tailwind. Интерактив — общий /script.js: он ищет
+ * #header, .reveal, [data-year] и [data-hits], поэтому эти имена здесь те же.
+ */
+import "../styles/global.css";
+import Icon from "../components/Icon.astro";
+import LangSwitcher from "../components/LangSwitcher.astro";
+import { btn } from "../styles/btn";
+import {
+  facts,
+  langs,
+  langMeta,
+  pageNames,
+  pages,
+  pathFor,
+  site,
+  ui,
+  wa,
+  type BuiltLang,
+  type PageId,
+} from "../i18n/ui";
+
+interface Props {
+  lang: BuiltLang;
+  page: PageId;
+  title: string;
+  description: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  /** Готовый текст сообщения для плавающей кнопки WhatsApp */
+  waText?: string;
+  jsonLd?: object;
+}
+const { lang, page, title, description, ogTitle, ogDescription, waText, jsonLd } = Astro.props;
+const t = ui[lang];
+
+const self = pathFor(page, lang)!;
+const canonical = `${site}${self}`;
+
+/*
+ * hreflang: все существующие версии страницы плюс x-default. x-default —
+ * английская версия: она для тех, чей язык мы не поддерживаем (немец,
+ * латыш), и английский им понятнее русского. Ставится, только если
+ * английская версия есть. Набор обязан быть одинаковым на всех версиях
+ * страницы — у русского HTML в public/ он вписан руками, сверять при
+ * добавлении языка.
+ */
+const alternates = langs
+  .map((l) => ({ l, href: pathFor(page, l) }))
+  .filter((x): x is { l: (typeof langs)[number]; href: string } => Boolean(x.href));
+const xDefault = pathFor(page, "en");
+
+/*
+ * Логотип ведёт на главную этого языка. Пока главных на EN/FI/ET нет, он
+ * ведёт на русскую — ПРОВЕРЬ: переключить, когда появятся /en/, /fi/, /et/.
+ */
+const homeHref = pathFor("home", lang) ?? "/";
+
+/* Подвал: все страницы, у которых есть версия на этом языке */
+const footerRoutes = (Object.keys(pages) as PageId[])
+  .map((id) => ({ id, href: pathFor(id, lang) }))
+  .filter((x) => x.href && x.id !== "home");
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    {alternates.map(({ l, href }) => <link rel="alternate" hreflang={l} href={`${site}${href}`} />)}
+    {xDefault && <link rel="alternate" hreflang="x-default" href={`${site}${xDefault}`} />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={langMeta[lang].og} />
+    {alternates.filter((a) => a.l !== lang).map(({ l }) => <meta property="og:locale:alternate" content={langMeta[l].og} />)}
+    <meta property="og:site_name" content="RideGo" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={ogTitle ?? title} />
+    <meta property="og:description" content={ogDescription ?? description} />
+    <meta property="og:image" content={`${site}/images/og.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#0b0f19" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <script is:inline>document.documentElement.classList.add("js");</script>
+    <script is:inline type="speculationrules">
+      { "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "moderate" }] }
+    </script>
+  </head>
+
+  <body>
+    <a
+      href="#main"
+      class="absolute top-0 -left-[9999px] z-[200] bg-accent px-5 py-3 font-semibold text-on-accent focus:top-3 focus:left-3"
+      >{t.skip}</a
+    >
+
+    <header
+      id="header"
+      class="site-header sticky top-0 z-[60] border-b border-transparent bg-bg/70 backdrop-blur-[14px] transition-colors duration-300"
+    >
+      <div class="mx-auto flex min-h-[74px] w-full max-w-[1180px] items-center gap-4 px-[clamp(18px,5vw,40px)] lg:gap-6">
+        <a href={homeHref} class="inline-flex items-center gap-2.5 text-[1.22rem] font-bold tracking-[-0.03em]" aria-label={t.homeLabel}>
+          <span class="grid size-9 place-items-center rounded-[11px] bg-linear-135 from-accent to-accent-2 text-[#17110a]" aria-hidden="true">
+            <Icon name="car" class="size-[22px]" />
+          </span>
+          <span>Ride<span class="text-accent">Go</span></span>
+        </a>
+
+        <nav class="ml-auto hidden gap-[26px] text-[0.96rem] text-muted min-[861px]:flex" aria-label={t.navLabel}>
+          {t.nav.map(([href, label]) => <a href={href} class="py-1 transition-colors hover:text-text">{label}</a>)}
+        </nav>
+
+        <div class="ml-auto flex items-center gap-3 min-[861px]:ml-0">
+          <LangSwitcher lang={lang} page={page} label={t.langLabel} />
+          <a
+            href={wa()}
+            target="_blank"
+            rel="noopener"
+            class="hidden items-center gap-2 rounded-full border border-wa/40 bg-wa/10 py-[7px] pr-[13px] pl-[11px] text-[0.72rem] leading-[1.3] font-medium text-[#7ceaa4] transition-colors hover:bg-wa/20 min-[1121px]:inline-flex"
+          >
+            <span class="size-2 flex-none rounded-full bg-wa shadow-[0_0_9px_1px_rgb(37_211_102/0.85)] motion-safe:animate-pulse" aria-hidden="true"></span>
+            <span>{t.liveBadge[0]}<br />{t.liveBadge[1]}</span>
+          </a>
+          <a href={facts.phoneHref} class={`${btn("accent", "sm")} max-[620px]:px-[13px] max-[620px]:py-[11px]`} aria-label={`${t.call}: ${facts.phone}`}>
+            <Icon name="phone" />
+            <span class="max-[620px]:hidden">{facts.phone}</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="border-t border-line bg-bg pt-[clamp(48px,6vw,72px)] text-[0.95rem] max-[620px]:pb-[84px]">
+      <div class="mx-auto grid w-full max-w-[1180px] grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-[34px] px-[clamp(18px,5vw,40px)] pb-10">
+        <div>
+          <span class="text-[1.2rem] font-bold">Ride<span class="text-accent">Go</span></span>
+          <p class="mt-3 max-w-[34ch] text-dim">{t.footerBlurb}</p>
+        </div>
+        <div>
+          <p class="mb-3.5 text-[0.78rem] font-bold tracking-[0.14em] text-dim uppercase">{t.footerContacts}</p>
+          <a class="block py-[5px] text-muted transition hover:translate-x-[3px] hover:text-accent" href={facts.phoneHref}>{facts.phone}</a>
+          <a class="block py-[5px] text-muted transition hover:translate-x-[3px] hover:text-accent" href={wa()} target="_blank" rel="noopener">WhatsApp</a>
+          <a class="block py-[5px] text-muted transition hover:translate-x-[3px] hover:text-accent" href={facts.telegram} target="_blank" rel="noopener">Telegram</a>
+        </div>
+        <div>
+          <p class="mb-3.5 text-[0.78rem] font-bold tracking-[0.14em] text-dim uppercase">{t.footerRoutes}</p>
+          {
+            footerRoutes.map(({ id, href }) => (
+              <a class="block py-[5px] text-muted transition hover:translate-x-[3px] hover:text-accent" href={href}>
+                {pageNames[id]?.[lang] ?? id}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <div class="mx-auto flex w-full max-w-[1180px] flex-wrap items-start justify-between gap-2.5 border-t border-line px-[clamp(18px,5vw,40px)] py-[22px] text-[0.87rem] text-dim">
+        <div class="flex flex-col gap-2">
+          <p>© <span data-year>2026</span> RideGo · ridego.ee</p>
+          <!-- Число подставляет /script.js из /hits.php; без JS строка скрыта -->
+          <p class="hidden items-center gap-[7px] self-start rounded-full border border-line bg-white/[0.02] py-[3px] pr-[11px] pl-[9px] text-[0.72rem] [&:not([hidden])]:inline-flex" data-hits hidden>
+            <span class="size-[5px] rounded-full bg-accent opacity-70" aria-hidden="true"></span>
+            {t.hits} <span class="font-semibold text-muted tabular-nums" data-hits-value>—</span>
+          </p>
+        </div>
+        <p>{t.country}</p>
+      </div>
+    </footer>
+
+    <a
+      href={wa(waText)}
+      target="_blank"
+      rel="noopener"
+      aria-label={t.fabLabel}
+      class="fixed right-4 bottom-4 z-50 hidden items-center gap-[9px] rounded-full bg-linear-120 from-accent to-accent-2 px-6 py-[15px] font-bold text-on-accent shadow-[0_14px_34px_-10px_rgb(255_165_36/0.85)] max-[620px]:inline-flex"
+    >
+      <Icon name="wa" />
+      <span>{t.fab}</span>
+    </a>
+
+    <!-- Общий с русскими страницами: шапка при скролле, .reveal, год, счётчик -->
+    <script is:inline src="/script.js?v=12" defer></script>
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </body>
+</html>

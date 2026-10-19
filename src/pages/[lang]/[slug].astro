@@ -1,0 +1,32 @@
+---
+/**
+ * Все посадочные переводов одним файлом: /en/…, /fi/…, /et/…
+ * Список страниц — пересечение реестра адресов (pages) и текстов (landings).
+ * Есть адрес, но нет текста (или наоборот) — сборка падает, а не молча
+ * выпускает страницу-сироту или ссылку в 404.
+ */
+import type { GetStaticPaths } from "astro";
+import RouteLanding from "../../layouts/RouteLanding.astro";
+import { builtLangs, pages, pathFor, type BuiltLang, type PageId } from "../../i18n/ui";
+import { landings } from "../../data/landings";
+
+export const getStaticPaths = (() => {
+  const out = [];
+  for (const id of Object.keys(pages) as PageId[]) {
+    for (const lang of builtLangs) {
+      const path = pathFor(id, lang);
+      const data = landings[id]?.[lang];
+      if (!path && !data) continue;
+      if (!path || !data) throw new Error(`${id}/${lang}: адрес в pages и текст в landings должны быть оба`);
+      const m = path.match(/^\/([a-z]{2})\/([a-z0-9-]+)\/$/);
+      if (!m || m[1] !== lang) throw new Error(`${id}/${lang}: адрес ${path} должен быть /${lang}/<slug>/`);
+      out.push({ params: { lang, slug: m[2] }, props: { id, lang, data } });
+    }
+  }
+  return out;
+}) satisfies GetStaticPaths;
+
+const { id, lang, data } = Astro.props as { id: PageId; lang: BuiltLang; data: NonNullable<(typeof landings)[PageId]>[BuiltLang] & {} };
+---
+
+<RouteLanding lang={lang} page={id} data={data} />

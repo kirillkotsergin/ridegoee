@@ -12,3 +12,7 @@ id_*
 # локальные настройки Claude Code: туда попадают команды целиком,
 # вместе с токенами из них
 .claude/settings.local.json
+
+# сборка Astro
+dist/
+.astro/

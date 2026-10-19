@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   deploy:
-    name: rsync public/ -> htdocs
+    name: build, rsync dist/ -> htdocs
     runs-on: ubuntu-latest
 
     env:
@@ -21,6 +21,40 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # С октября 2026 сайт собирает Astro: на хостинг уезжает dist/, а не
+      # public/. Русские страницы лежат в public/ и попадают в dist/ как есть.
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+
+      # rsync ниже идёт с --delete: хостинг станет точной копией dist/.
+      # Неполная сборка снесла бы сайт (так уже было 12.08 с заглушкой,
+      # CLAUDE.md раздел 4), поэтому до копирования проверяем, что в dist/
+      # есть главная, переводы и все русские страницы.
+      - name: Check build output
+        run: |
+          for f in index.html .htaccess sitemap.xml styles.css script.js \
+                   transfer-tallinn-narva/index.html en/transfer-tallinn-narva/index.html; do
+            if [ ! -s "dist/$f" ]; then
+              echo "::error::В dist/ нет $f — сборка неполная, деплой остановлен, сайт не тронут."
+              exit 1
+            fi
+          done
+          src=$(find public -type f | wc -l)
+          out=$(find dist -type f | wc -l)
+          echo "public/: $src файлов, dist/: $out файлов"
+          if [ "$out" -lt "$src" ]; then
+            echo "::error::В dist/ меньше файлов, чем в public/ — деплой остановлен."
+            exit 1
+          fi
 
       # Раньше деплой падал на шаге rsync без внятной причины. Теперь каждая
       # предпосылка проверяется отдельно и сообщает, что именно не так.
@@ -91,7 +125,7 @@ jobs:
             --exclude='.well-known/' \
             --exclude='.git*' \
             -e "ssh -p $SSH_PORT -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes" \
-            ./public/ "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"
+            ./dist/ "$SSH_USER@$SSH_HOST:$REMOTE_PATH/"
 
       # Проверяем не «rsync не упал», а что сайт реально отдаётся.
       - name: Smoke check

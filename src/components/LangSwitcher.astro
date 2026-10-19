@@ -1,0 +1,54 @@
+---
+/**
+ * Переключатель языков. Ведёт на ту же страницу на другом языке, а не на
+ * главную: человек из поиска пришёл за маршрутом, и терять его при смене
+ * языка незачем. Языка без перевода в списке нет вовсе — ссылка «в никуда»
+ * хуже отсутствующей.
+ *
+ * Обычные ссылки, без JS: работают у краулеров и с выключенными скриптами.
+ */
+import { langs, langMeta, pathFor, type Lang, type PageId } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+  page: PageId;
+  label: string;
+}
+const { lang, page, label } = Astro.props;
+
+const items = langs
+  .map((l) => ({ l, href: pathFor(page, l) }))
+  .filter((x): x is { l: Lang; href: string } => Boolean(x.href));
+---
+
+<nav aria-label={label}>
+  <ul class="flex items-center gap-1 rounded-full border border-line bg-surface p-1 text-[0.8rem] font-semibold">
+    {
+      items.map(({ l, href }) =>
+        l === lang ? (
+          <li>
+            <span
+              class="block rounded-full bg-accent px-2.5 py-1 text-on-accent"
+              aria-current="page"
+              title={langMeta[l].name}
+            >
+              {langMeta[l].code}
+            </span>
+          </li>
+        ) : (
+          <li>
+            <a
+              href={href}
+              hreflang={l}
+              lang={l}
+              title={langMeta[l].name}
+              class="block rounded-full px-2.5 py-1 text-muted transition-colors duration-200 hover:bg-surface-2 hover:text-text"
+            >
+              {langMeta[l].code}
+            </a>
+          </li>
+        ),
+      )
+    }
+  </ul>
+</nav>

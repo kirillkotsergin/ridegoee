@@ -2101,6 +2101,39 @@ html.js .reveal.is-visible {
   translate: 0 0;
 }
 
+/* ---------- переключатель языков ----------
+   Тот же вид, что у LangSwitcher.astro на EN/FI/ET-страницах. Стоит только
+   на страницах, у которых есть перевод. */
+
+.langs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.langs__item {
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--muted);
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+
+a.langs__item:hover {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.langs__item.is-current {
+  background: var(--accent);
+  color: #1a1204;
+}
+
 /* ---------- адаптив ---------- */
 
 /* Ниже 1120px в шапке индикатор не влезает рядом с меню и телефоном —
