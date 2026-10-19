@@ -16,7 +16,11 @@
   /*  Считает сервер (hits.php), браузер только показывает число. Запрос идёт
       отсюда, а не из разметки, — значит краулеры, не исполняющие JS, счётчик
       не накручивают. Если PHP на хостинге недоступен или запрос не удался,
-      строка так и остаётся скрытой: пустого «Посещений: —» посетитель не увидит.  */
+      строка так и остаётся скрытой: пустого «Посещений: —» посетитель не увидит.
+
+      Два числа: всего и за сегодня (сутки по Таллинну, их считает hits.php).
+      Сразу после полуночи «сегодня» бывает 0 — тогда эта половина скрыта,
+      а общее число остаётся.  */
 
   var hitsEl = document.querySelector("[data-hits]");
 
@@ -28,9 +32,17 @@
       .then(function (data) {
         if (!data || typeof data.total !== "number" || data.total < 1) return;
 
-        var valueEl = hitsEl.querySelector("[data-hits-value]");
         /* формат числа по языку страницы: «1 234» по-русски, «1,234» по-английски */
-        if (valueEl) valueEl.textContent = data.total.toLocaleString(document.documentElement.lang || "ru");
+        var locale = document.documentElement.lang || "ru";
+        var totalEl = hitsEl.querySelector("[data-hits-total]");
+        var todayEl = hitsEl.querySelector("[data-hits-today]");
+        var todayBox = hitsEl.querySelector("[data-hits-today-box]");
+
+        if (totalEl) totalEl.textContent = data.total.toLocaleString(locale);
+        if (todayEl && todayBox && typeof data.today === "number" && data.today > 0) {
+          todayEl.textContent = data.today.toLocaleString(locale);
+          todayBox.hidden = false;
+        }
         hitsEl.hidden = false;
       })
       .catch(function () {

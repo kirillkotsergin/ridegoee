@@ -62,7 +62,9 @@ $today = isset($state['today']) ? (int) $state['today'] : 0;
 $day = isset($state['day']) ? (string) $state['day'] : '';
 $seen = isset($state['seen']) && is_array($state['seen']) ? $state['seen'] : [];
 
-$now = gmdate('Y-m-d');
+// Сутки — по Таллинну, а не по UTC: иначе «сегодня» обнулялось бы в 2–3 часа
+// ночи по местному времени и показывало вчерашних посетителей до утра.
+$now = (new DateTimeImmutable('now', new DateTimeZone('Europe/Tallinn')))->format('Y-m-d');
 if ($day !== $now) {
     // Начались новые сутки — список посетителей заводим заново.
     $day = $now;

@@ -67,8 +67,12 @@ export const pages = {
     et: "/et/transfeer-narva-tallinn/",
   },
   "tallinn-koidula": { ru: "/transfer-tallinn-koidula/" },
+  "koidula-tallinn": { ru: "/transfer-koidula-tallinn/" },
   "tallinn-luhamaa": { ru: "/transfer-tallinn-luhamaa/" },
+  "luhamaa-tallinn": { ru: "/transfer-luhamaa-tallinn/" },
   "tartu-koidula-luhamaa": { ru: "/transfer-tartu-koidula-luhamaa/" },
+  "spb-ivangorod": { ru: "/transfer-spb-ivangorod/" },
+  "finland-russia": { ru: "/transfer-finlyandiya-rossiya/" },
   guide: { ru: "/kak-dobratsya-do-granicy/" },
 } satisfies Record<string, Partial<Record<Lang, string>>>;
 export type PageId = keyof typeof pages;
@@ -76,10 +80,21 @@ export type PageId = keyof typeof pages;
 export const pathFor = (id: PageId, lang: Lang): string | undefined =>
   (pages[id] as Partial<Record<Lang, string>>)[lang];
 
-/** Подписи страниц в подвале. Направление — длинным тире, как в заголовках */
-export const pageNames: Partial<Record<PageId, Record<BuiltLang, string>>> = {
+/**
+ * Названия страниц на каждом языке — для подвала. Порядок записей в `pages`
+ * и есть порядок ссылок в подвале. Направление — длинным тире.
+ */
+export const pageNames: Record<Exclude<PageId, "home">, Record<BuiltLang, string>> = {
   "tallinn-narva": { en: "Tallinn — Narva", fi: "Tallinna — Narva", et: "Tallinn — Narva" },
   "narva-tallinn": { en: "Narva — Tallinn", fi: "Narva — Tallinna", et: "Narva — Tallinn" },
+  "tallinn-koidula": { en: "Tallinn — Koidula", fi: "Tallinna — Koidula", et: "Tallinn — Koidula" },
+  "koidula-tallinn": { en: "Koidula — Tallinn", fi: "Koidula — Tallinna", et: "Koidula — Tallinn" },
+  "tallinn-luhamaa": { en: "Tallinn — Luhamaa", fi: "Tallinna — Luhamaa", et: "Tallinn — Luhamaa" },
+  "luhamaa-tallinn": { en: "Luhamaa — Tallinn", fi: "Luhamaa — Tallinna", et: "Luhamaa — Tallinn" },
+  "tartu-koidula-luhamaa": { en: "Tartu — Koidula and Luhamaa", fi: "Tartto — Koidula ja Luhamaa", et: "Tartu — Koidula ja Luhamaa" },
+  "spb-ivangorod": { en: "St Petersburg — Ivangorod, Pskov", fi: "Pietari — Ivangorod, Pihkova", et: "Peterburi — Ivangorod, Pihkva" },
+  "finland-russia": { en: "From Finland to Russia", fi: "Suomesta Venäjälle", et: "Soomest Venemaale" },
+  guide: { en: "How to get to the border", fi: "Miten pääsee rajalle", et: "Kuidas jõuda piirile" },
 };
 
 /** Строки интерфейса: шапка, подвал, кнопки. Тексты страниц — в src/data/. */
@@ -106,7 +121,9 @@ export const ui = {
     footerBlurb: "Private transfers from Tallinn to the Narva, Koidula and Luhamaa border crossings.",
     footerContacts: "Contact",
     footerRoutes: "Routes in English",
-    hits: "Visits:",
+    footerRussian: "More routes · in Russian",
+    hitsTotal: "Total visitors:",
+    hitsToday: "Today:",
     country: "Tallinn, Estonia",
   },
   fi: {
@@ -131,7 +148,9 @@ export const ui = {
     footerBlurb: "Yksityiskuljetukset Tallinnasta Narvan, Koidulan ja Luhamaan rajanylityspaikoille.",
     footerContacts: "Yhteystiedot",
     footerRoutes: "Reitit suomeksi",
-    hits: "Käyntejä:",
+    footerRussian: "Lisää reittejä · venäjäksi",
+    hitsTotal: "Kävijöitä yhteensä:",
+    hitsToday: "Tänään:",
     country: "Tallinna, Viro",
   },
   et: {
@@ -156,7 +175,9 @@ export const ui = {
     footerBlurb: "Eratransfeerid Tallinnast Narva, Koidula ja Luhamaa piiripunkti.",
     footerContacts: "Kontakt",
     footerRoutes: "Suunad eesti keeles",
-    hits: "Külastusi:",
+    footerRussian: "Veel suundi · vene keeles",
+    hitsTotal: "Külastajaid kokku:",
+    hitsToday: "Täna:",
     country: "Tallinn, Eesti",
   },
 } satisfies Record<BuiltLang, unknown>;
