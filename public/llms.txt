@@ -68,6 +68,13 @@ Narva Port Hostel (Jõe tn 3) и апартаменты Narva Kangelaste 2 (Kang
   паром Хельсинки — Таллинн, дорога до границы, пеший переход в Нарве и трансфер
   от границы до Санкт-Петербурга 6500 ₽; Петрозаводск и Карелия по договорённости
 
+## Версии на других языках
+
+Те же маршруты, тексты написаны отдельно для каждого языка (19.10.2026).
+
+- Tallinn — Narva: [English](https://ridego.ee/en/transfer-tallinn-narva/), [Suomi](https://ridego.ee/fi/kuljetus-tallinna-narva/), [Eesti](https://ridego.ee/et/transfeer-tallinn-narva/)
+- Narva — Tallinn: [English](https://ridego.ee/en/transfer-narva-tallinn/), [Suomi](https://ridego.ee/fi/kuljetus-narva-tallinna/), [Eesti](https://ridego.ee/et/transfeer-narva-tallinn/)
+
 ## Что входит в цену
 
 - Фиксированная стоимость: пробки, ночной выезд и ожидание её не меняют

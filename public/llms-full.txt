@@ -303,6 +303,13 @@
   Таллинна до границы, расписания и цены перевозчиков, режим работы переходов,
   где переночевать в Нарве.
 
+Версии на других языках (19.10.2026, тексты написаны отдельно для каждого языка):
+
+- https://ridego.ee/en/transfer-tallinn-narva/, https://ridego.ee/fi/kuljetus-tallinna-narva/,
+  https://ridego.ee/et/transfeer-tallinn-narva/ — Tallinn — Narva, 130 €
+- https://ridego.ee/en/transfer-narva-tallinn/, https://ridego.ee/fi/kuljetus-narva-tallinna/,
+  https://ridego.ee/et/transfeer-narva-tallinn/ — Narva — Tallinn, 130 €
+
 ## 11. Контакты
 
 - Телефон, WhatsApp, Telegram: +372 5627 7764
