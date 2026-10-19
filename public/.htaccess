@@ -32,6 +32,15 @@ ErrorDocument 404 /404.html
   # Удалять правило не нужно — оно ничего не стоит и страхует внешние ссылки.
   RewriteRule ^(tallinn-narva|narva-tallinn|tallinn-koidula|koidula-tallinn|tallinn-luhamaa|luhamaa-tallinn)/?$ /transfer-$1/ [R=301,L]
 
+  # ---------- корень языка без главной → главная страница языка ----------
+  # Главных /en/, /fi/, /et/ пока нет, и каталог без index.html отвечал 403.
+  # Временно ведём на Таллинн — Нарва этого языка. Именно 302, а не 301:
+  # появится настоящая главная — правило удаляем, и поисковик не держит
+  # старую переадресацию в памяти как постоянную.
+  RewriteRule ^en/?$ /en/transfer-tallinn-narva/ [R=302,L]
+  RewriteRule ^fi/?$ /fi/kuljetus-tallinna-narva/ [R=302,L]
+  RewriteRule ^et/?$ /et/transfeer-tallinn-narva/ [R=302,L]
+
   # ---------- WebP вместо JPEG, если браузер его понимает ----------
   # Рядом с каждым фото лежит .webp того же имени (см. tools/make-webp.sh).
   # Подмена срабатывает только при двух условиях сразу: браузер прислал
