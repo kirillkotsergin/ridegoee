@@ -39,7 +39,7 @@ export const facts = {
   driver: "Kirill",
   narva: { price: 130, km: 210, queueSlot: 50 },
   koidula: { price: 160, km: 270 },
-  luhamaa: { price: 160 },
+  luhamaa: { price: 160, km: 280 },
   tartu: { price: 80 },
   /** Машина по российской стороне от Куничиной Горы, в рублях (заказчик, 13.08) */
   kunichinaGora: { pskov: 3000, spb: 17000 },
@@ -80,6 +80,10 @@ export const pages = {
     fi: "/fi/kuljetus-koidula-tallinna/",
     et: "/et/transfeer-koidula-tallinn/",
   },
+  // Лухамаа: EN-тексты готовы (src/data/*-luhamaa*/en.ts), FI/ET ещё нет.
+  // Адреса /en/transfer-tallinn-luhamaa/ и /en/transfer-luhamaa-tallinn/,
+  // FI kuljetus-…-luhamaa(-tallinna), ET transfeer-…-luhamaa — вписать вместе
+  // с текстами всех трёх языков, иначе сборка упадёт.
   "tallinn-luhamaa": { ru: "/transfer-tallinn-luhamaa/" },
   "luhamaa-tallinn": { ru: "/transfer-luhamaa-tallinn/" },
   "tartu-koidula-luhamaa": { ru: "/transfer-tartu-koidula-luhamaa/" },
