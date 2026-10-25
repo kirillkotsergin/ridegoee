@@ -10,6 +10,14 @@
       content="Трансфер из Таллинна до погранперехода Койдула: 160 € за автомобиль, 270 км, около 3 часов в пути. Встреча в аэропорту, порту или по адресу."
     />
     <link rel="canonical" href="https://ridego.ee/transfer-tallinn-koidula/" />
+    <!-- Языковые версии страницы. Набор обязан совпадать с тем, что выводит
+         src/layouts/Base.astro на EN/FI/ET-версиях: hreflang без взаимной
+         ссылки Google игнорирует. x-default — английская версия. -->
+    <link rel="alternate" hreflang="ru" href="https://ridego.ee/transfer-tallinn-koidula/" />
+    <link rel="alternate" hreflang="en" href="https://ridego.ee/en/transfer-tallinn-koidula/" />
+    <link rel="alternate" hreflang="fi" href="https://ridego.ee/fi/kuljetus-tallinna-koidula/" />
+    <link rel="alternate" hreflang="et" href="https://ridego.ee/et/transfeer-tallinn-koidula/" />
+    <link rel="alternate" hreflang="x-default" href="https://ridego.ee/en/transfer-tallinn-koidula/" />
     <!-- Разрешаем полный сниппет и крупное превью: на этом держатся и
          обычные сниппеты, и пересказы в ИИ-поиске. -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -68,6 +76,13 @@
         </nav>
 
         <div class="header__contact">
+          <!-- Переключатель языков: та же страница на другом языке -->
+          <nav class="langs" aria-label="Язык">
+            <span class="langs__item is-current" aria-current="page" title="Русский">RU</span>
+            <a class="langs__item" href="/en/transfer-tallinn-koidula/" hreflang="en" lang="en" title="English">EN</a>
+            <a class="langs__item" href="/fi/kuljetus-tallinna-koidula/" hreflang="fi" lang="fi" title="Suomi">FI</a>
+            <a class="langs__item" href="/et/transfeer-tallinn-koidula/" hreflang="et" lang="et" title="Eesti">ET</a>
+          </nav>
           <!-- Зелёный мигающий индикатор рядом с номером. На экранах уже 1120px
                скрыт (в шапке нет места). -->
           <a class="live-badge" href="https://wa.me/37256277764" target="_blank" rel="noopener">
@@ -514,13 +529,13 @@
         <div class="footer__brand">
           <span class="logo__text">Ride<span>Go</span></span>
           <p>Трансфер из Таллинна к погранпереходам Нарва, Койдула и Лухамаа.</p>
-          <!-- Переводы: точка входа на каждом языке — Таллинн — Нарва -->
+          <!-- Переводы этой же страницы -->
           <p class="footer__langs">
-            <a href="/en/transfer-tallinn-narva/" hreflang="en" lang="en">In English</a>
+            <a href="/en/transfer-tallinn-koidula/" hreflang="en" lang="en">In English</a>
             <span aria-hidden="true">·</span>
-            <a href="/fi/kuljetus-tallinna-narva/" hreflang="fi" lang="fi">Suomeksi</a>
+            <a href="/fi/kuljetus-tallinna-koidula/" hreflang="fi" lang="fi">Suomeksi</a>
             <span aria-hidden="true">·</span>
-            <a href="/et/transfeer-tallinn-narva/" hreflang="et" lang="et">Eesti keeles</a>
+            <a href="/et/transfeer-tallinn-koidula/" hreflang="et" lang="et">Eesti keeles</a>
           </p>
         </div>
         <div class="footer__col">

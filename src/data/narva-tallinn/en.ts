@@ -186,8 +186,8 @@ export const en: Landing = {
           src: "/images/car-3.jpg",
           alt: "Rear seats of the RideGo Toyota Corolla used for the Narva to Tallinn transfer",
           caption: "The back seat. After a few hours at the border it matters more than you would think.",
-          width: 1600,
-          height: 1200,
+          width: 1200,
+          height: 737,
         },
         {
           type: "text",
@@ -258,7 +258,7 @@ export const en: Landing = {
     note: "Routes without an English page yet open WhatsApp with the route already filled in.",
     items: [
       { label: "Tallinn — Narva", price: eur(n.price), page: "tallinn-narva", waText: "Hello! I'd like to book a transfer Tallinn — Narva." },
-      { label: "Koidula — Tallinn", price: eur(facts.koidula.price), waText: "Hello! I'd like to book a transfer Koidula — Tallinn." },
+      { label: "Koidula — Tallinn", price: eur(facts.koidula.price), page: "koidula-tallinn", waText: "Hello! I'd like to book a transfer Koidula — Tallinn." },
       { label: "Luhamaa — Tallinn", price: eur(facts.luhamaa.price), waText: "Hello! I'd like to book a transfer Luhamaa — Tallinn." },
       { label: "Tartu — Koidula or Luhamaa", price: eur(facts.tartu.price), page: "tartu-koidula-luhamaa", waText: "Hello! I'd like to book a transfer between Tartu and the border." },
     ],

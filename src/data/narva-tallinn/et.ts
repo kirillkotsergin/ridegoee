@@ -172,8 +172,8 @@ export const et: Landing = {
           src: "/images/car-3.jpg",
           alt: "RideGo Toyota Corolla tagaistmed, transfeer Narva — Tallinn",
           caption: "Tagaiste. Pärast mõnetunnist piirijärjekorda on see olulisem, kui arvata võiks.",
-          width: 1600,
-          height: 1200,
+          width: 1200,
+          height: 737,
         },
         {
           type: "text",
@@ -240,7 +240,7 @@ export const et: Landing = {
     note: "Suunad, millel eestikeelset lehte veel pole, avavad WhatsAppi, kus suund on juba sisse kirjutatud.",
     items: [
       { label: "Tallinn — Narva", price: eur(n.price), page: "tallinn-narva", waText: "Tere! Soovin tellida transfeeri Tallinn — Narva. (Transfer Tallinn — Narva)" },
-      { label: "Koidula — Tallinn", price: eur(facts.koidula.price), waText: "Tere! Soovin tellida transfeeri Koidula — Tallinn. (Transfer Koidula — Tallinn)" },
+      { label: "Koidula — Tallinn", price: eur(facts.koidula.price), page: "koidula-tallinn", waText: "Tere! Soovin tellida transfeeri Koidula — Tallinn. (Transfer Koidula — Tallinn)" },
       { label: "Luhamaa — Tallinn", price: eur(facts.luhamaa.price), waText: "Tere! Soovin tellida transfeeri Luhamaa — Tallinn. (Transfer Luhamaa — Tallinn)" },
       { label: "Tartu — Koidula või Luhamaa", price: eur(facts.tartu.price), page: "tartu-koidula-luhamaa", waText: "Tere! Soovin tellida transfeeri Tartu ja piiri vahel. (Transfer Tartu — border)" },
     ],

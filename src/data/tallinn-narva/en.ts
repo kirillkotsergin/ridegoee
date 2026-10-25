@@ -170,8 +170,8 @@ export const en: Landing = {
           src: "/images/car-1.jpg",
           alt: "RideGo Toyota Corolla used for the Tallinn to Narva transfer, front view",
           caption: `${facts.car} — this is the actual car that comes to pick you up.`,
-          width: 1600,
-          height: 1200,
+          width: 1200,
+          height: 675,
         },
         {
           type: "text",

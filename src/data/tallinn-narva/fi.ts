@@ -167,8 +167,8 @@ export const fi: Landing = {
           src: "/images/car-1.jpg",
           alt: "RideGon Toyota Corolla, jolla kuljetus Tallinnasta Narvaan ajetaan, edestä kuvattuna",
           caption: `${facts.car} — juuri tämä auto tulee hakemaan sinut.`,
-          width: 1600,
-          height: 1200,
+          width: 1200,
+          height: 675,
         },
         {
           type: "text",

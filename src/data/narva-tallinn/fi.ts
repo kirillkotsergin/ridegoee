@@ -176,8 +176,8 @@ export const fi: Landing = {
           src: "/images/car-3.jpg",
           alt: "RideGon Toyota Corollan takaistuimet, kuljetus Narvasta Tallinnaan",
           caption: "Takapenkki. Muutaman tunnin rajajonon jälkeen sillä on enemmän merkitystä kuin luulisi.",
-          width: 1600,
-          height: 1200,
+          width: 1200,
+          height: 737,
         },
         {
           type: "text",
@@ -244,7 +244,7 @@ export const fi: Landing = {
     note: "Reitit, joilla ei vielä ole suomenkielistä sivua, avaavat WhatsAppin, jossa reitti on valmiiksi kirjoitettuna.",
     items: [
       { label: "Tallinna — Narva", price: eur(n.price), page: "tallinn-narva", waText: "Hei! Haluaisin tilata kuljetuksen Tallinna — Narva. (Transfer Tallinn — Narva)" },
-      { label: "Koidula — Tallinna", price: eur(facts.koidula.price), waText: "Hei! Haluaisin tilata kuljetuksen Koidula — Tallinna. (Transfer Koidula — Tallinn)" },
+      { label: "Koidula — Tallinna", price: eur(facts.koidula.price), page: "koidula-tallinn", waText: "Hei! Haluaisin tilata kuljetuksen Koidula — Tallinna. (Transfer Koidula — Tallinn)" },
       { label: "Luhamaa — Tallinna", price: eur(facts.luhamaa.price), waText: "Hei! Haluaisin tilata kuljetuksen Luhamaa — Tallinna. (Transfer Luhamaa — Tallinn)" },
       { label: "Tartto — Koidula tai Luhamaa", price: eur(facts.tartu.price), page: "tartu-koidula-luhamaa", waText: "Hei! Haluaisin tilata kuljetuksen Tarton ja rajan välillä. (Transfer Tartu — border)" },
     ],

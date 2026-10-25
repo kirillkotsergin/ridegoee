@@ -172,8 +172,8 @@ export const et: Landing = {
           src: "/images/car-1.jpg",
           alt: "RideGo Toyota Corolla, millega sõidetakse transfeeri Tallinn — Narva, eestvaade",
           caption: `${facts.car} — just see auto tuleb teile järele.`,
-          width: 1600,
-          height: 1200,
+          width: 1200,
+          height: 675,
         },
         {
           type: "text",

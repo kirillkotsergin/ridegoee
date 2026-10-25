@@ -309,6 +309,10 @@
   https://ridego.ee/et/transfeer-tallinn-narva/ — Tallinn — Narva, 130 €
 - https://ridego.ee/en/transfer-narva-tallinn/, https://ridego.ee/fi/kuljetus-narva-tallinna/,
   https://ridego.ee/et/transfeer-narva-tallinn/ — Narva — Tallinn, 130 €
+- https://ridego.ee/en/transfer-tallinn-koidula/, https://ridego.ee/fi/kuljetus-tallinna-koidula/,
+  https://ridego.ee/et/transfeer-tallinn-koidula/ — Tallinn — Koidula, 160 € (25.10.2026)
+- https://ridego.ee/en/transfer-koidula-tallinn/, https://ridego.ee/fi/kuljetus-koidula-tallinna/,
+  https://ridego.ee/et/transfeer-koidula-tallinn/ — Koidula — Tallinn, 160 € (25.10.2026)
 
 ## 11. Контакты
 

@@ -38,9 +38,11 @@ export const facts = {
   car: "Toyota Corolla 2020",
   driver: "Kirill",
   narva: { price: 130, km: 210, queueSlot: 50 },
-  koidula: { price: 160 },
+  koidula: { price: 160, km: 270 },
   luhamaa: { price: 160 },
   tartu: { price: 80 },
+  /** Машина по российской стороне от Куничиной Горы, в рублях (заказчик, 13.08) */
+  kunichinaGora: { pskov: 3000, spb: 17000 },
 } as const;
 
 /** Ссылка в WhatsApp с готовым текстом сообщения */
@@ -66,8 +68,18 @@ export const pages = {
     fi: "/fi/kuljetus-narva-tallinna/",
     et: "/et/transfeer-narva-tallinn/",
   },
-  "tallinn-koidula": { ru: "/transfer-tallinn-koidula/" },
-  "koidula-tallinn": { ru: "/transfer-koidula-tallinn/" },
+  "tallinn-koidula": {
+    ru: "/transfer-tallinn-koidula/",
+    en: "/en/transfer-tallinn-koidula/",
+    fi: "/fi/kuljetus-tallinna-koidula/",
+    et: "/et/transfeer-tallinn-koidula/",
+  },
+  "koidula-tallinn": {
+    ru: "/transfer-koidula-tallinn/",
+    en: "/en/transfer-koidula-tallinn/",
+    fi: "/fi/kuljetus-koidula-tallinna/",
+    et: "/et/transfeer-koidula-tallinn/",
+  },
   "tallinn-luhamaa": { ru: "/transfer-tallinn-luhamaa/" },
   "luhamaa-tallinn": { ru: "/transfer-luhamaa-tallinn/" },
   "tartu-koidula-luhamaa": { ru: "/transfer-tartu-koidula-luhamaa/" },
