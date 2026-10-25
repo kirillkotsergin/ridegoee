@@ -33,7 +33,7 @@ export const et: Landing = {
     lead: "Tulete piiripunktist välja Eesti poolele ja auto juba ootab. Väikeses piirilinnas pole vaja taksot otsida: sõidame otse koju, hotelli, Tallinna lennujaama, sadamasse või mis tahes aadressile.",
     answer: [
       `<strong>Lühidalt:</strong> transfeer Narva piirilt Tallinna maksab <strong>${eur(n.price)} kogu auto eest</strong>, kuni neli reisijat koos pagasiga, ja sõit kestab umbes <strong>2 tundi 30 minutit</strong>. Juht ootab Narva-1 juures, kuni te passikontrolli läbite, ja see ootamine on tasuta.`,
-      "Täpset aega, millal piirist läbi saate, ei tea keegi ette. Seepärast lepime kokku ligikaudse kellaaja ja te kirjutate WhatsAppis, kui olete Eesti poolel. Broneerige ette: piiri ääres taksot peaaegu ei oota.",
+      "Täpset aega, millal piirist läbi saate, ei tea keegi ette. Seepärast lepime kokku ligikaudse kellaaja ja te kirjutate WhatsAppis, kui olete Eesti poolel. Broneerige ette: piiripunkti juures ei ole tavaliselt taksot ootamas.",
     ],
     stats: [
       [eur(n.price), "kogu auto eest"],
@@ -109,7 +109,7 @@ export const et: Landing = {
       blocks: [
         {
           type: "text",
-          h3: "Lennuks varu jätmine",
+          h3: "Lennule jõudmiseks varu jätmine",
           html: "Sõit piirilt terminalini võtab umbes kaks ja pool tundi, piiril ootamine aga pole ette teada. Lennu puhul soovitame Venemaa poolel järjekorda asuda umbes <strong>kaheksa tundi enne väljalendu</strong>. Saatke lennu number, siis arvestame vastuvõtu aja selle järgi.",
         },
         {

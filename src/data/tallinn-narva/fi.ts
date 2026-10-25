@@ -198,7 +198,7 @@ export const fi: Landing = {
         },
         {
           type: "tip",
-          html: "<strong>Milloin auto kannattaa.</strong> Haluat rajalle avaamisaikaan klo 7.00. Lautta tai lento saapuu illalla. Mukana on lapsi, lastenrattaat tai paljon laukkuja. Tai tulet takaisin — Narvan rajalla ei juuri koskaan odota taksia.",
+          html: "<strong>Milloin auto kannattaa.</strong> Haluat rajalle avaamisaikaan klo 7.00. Lautta tai lento saapuu illalla. Mukana on lapsi, lastenrattaat tai paljon laukkuja. Tai tulet takaisin — Narvan rajanylityspaikalla ei yleensä ole takseja odottamassa.",
         },
       ],
     },
@@ -254,7 +254,7 @@ export const fi: Landing = {
       },
       {
         q: "Ajatteko myös Narvasta takaisin Tallinnaan?",
-        a: `Kyllä, samaan ${eur(n.price)} hintaan — katso <a href="${pathFor("narva-tallinn", "fi")}">Narva — Tallinna</a>. Sovi paluu etukäteen: rajalla ei juuri koskaan odota taksia, etenkään iltaisin. Molemmat suunnat voi tilata samalla viestillä.`,
+        a: `Kyllä, samaan ${eur(n.price)} hintaan — katso <a href="${pathFor("narva-tallinn", "fi")}">Narva — Tallinna</a>. Sovi paluu etukäteen: Narvan rajanylityspaikalla ei yleensä ole takseja odottamassa, etenkään iltaisin. Molemmat suunnat voi tilata samalla viestillä.`,
       },
     ],
   },

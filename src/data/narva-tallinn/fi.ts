@@ -32,7 +32,7 @@ export const fi: Landing = {
     lead: "Tulet rajanylityspaikalta Viron puolelle, ja auto on jo odottamassa. Taksia ei tarvitse etsiä pienestä rajakaupungista: ajamme suoraan satamaan, lentoasemalle, hotelliin tai mihin tahansa osoitteeseen Tallinnassa.",
     answer: [
       `<strong>Lyhyesti:</strong> kuljetus Narvan rajalta Tallinnaan maksaa <strong>${eur(n.price)} koko autolta</strong>, enintään neljälle matkustajalle matkatavaroineen, ja ajo kestää noin <strong>2 tuntia 30 minuuttia</strong>. Kuljettaja odottaa Narva-1:llä sen ajan, kun olet passintarkastuksessa, eikä odotuksesta veloiteta.`,
-      "Kukaan ei tiedä tarkalleen, milloin pääset rajan läpi, joten sovimme suunnilleen kellonajan ja lähetät WhatsApp-viestin, kun olet Viron puolella. Varaa etukäteen: rajalla ei juuri koskaan odota taksia.",
+      "Kukaan ei tiedä tarkalleen, milloin pääset rajan läpi, joten sovimme suunnilleen kellonajan ja lähetät WhatsApp-viestin, kun olet Viron puolella. Varaa etukäteen: Narvan rajanylityspaikalla ei yleensä ole takseja odottamassa.",
     ],
     stats: [
       [eur(n.price), "koko autolta"],
