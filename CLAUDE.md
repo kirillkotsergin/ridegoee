@@ -60,6 +60,7 @@
 ├─ .github/workflows/deploy.yml  автодеплой на zone.ee по push в main
 ├─ tools/make-icons.ps1          генератор favicon.ico, иконок и og.png (UTF-8 с BOM!)
 ├─ tools/make-webp.sh            генератор .webp для фото, запускать на zone.ee
+├─ tools/deploy.sh               сборка и выкладка dist/ по SSH, см. раздел 4
 └─ public/                       ← ровно это содержимое уезжает на хостинг
    ├─ index.html                 главная + JSON-LD (TaxiService, FAQPage) в конце body
    ├─ transfer-tallinn-narva/index.html  ← девять посадочных страниц, см. раздел 3.1
@@ -324,6 +325,12 @@ Telegram-ссылка сделана по номеру: `https://t.me/+372562777
 `git push` в `main` → GitHub Actions → `npm ci && npm run build` →
 проверка `dist/` → `rsync -rlvz --delete dist/ → htdocs/` по SSH на zone.ee.
 Ручной запуск доступен через `workflow_dispatch` во вкладке Actions.
+
+**Выкладка по SSH — `bash tools/deploy.sh`** (с 25.10.2026, по просьбе
+владельца): сборка → те же проверки `dist/` → `tar` по SSH поверх `htdocs` →
+200 по каждой странице из `dist/`. Ничего на сервере не удаляет. Push в `main`
+всё равно делать: иначе следующий прогон Actions с `--delete` откатит сайт к
+тому, что лежит в `main`.
 
 - **25.10.2026 `astro-i18n` слита в `main` (fast-forward) и запушена**, деплой
   из Actions прошёл: переводы и все русские страницы отдают 200. Ручная
