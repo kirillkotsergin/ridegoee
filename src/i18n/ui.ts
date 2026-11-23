@@ -80,12 +80,18 @@ export const pages = {
     fi: "/fi/kuljetus-koidula-tallinna/",
     et: "/et/transfeer-koidula-tallinn/",
   },
-  // Лухамаа: EN-тексты готовы (src/data/*-luhamaa*/en.ts), FI/ET ещё нет.
-  // Адреса /en/transfer-tallinn-luhamaa/ и /en/transfer-luhamaa-tallinn/,
-  // FI kuljetus-…-luhamaa(-tallinna), ET transfeer-…-luhamaa — вписать вместе
-  // с текстами всех трёх языков, иначе сборка упадёт.
-  "tallinn-luhamaa": { ru: "/transfer-tallinn-luhamaa/" },
-  "luhamaa-tallinn": { ru: "/transfer-luhamaa-tallinn/" },
+  "tallinn-luhamaa": {
+    ru: "/transfer-tallinn-luhamaa/",
+    en: "/en/transfer-tallinn-luhamaa/",
+    fi: "/fi/kuljetus-tallinna-luhamaa/",
+    et: "/et/transfeer-tallinn-luhamaa/",
+  },
+  "luhamaa-tallinn": {
+    ru: "/transfer-luhamaa-tallinn/",
+    en: "/en/transfer-luhamaa-tallinn/",
+    fi: "/fi/kuljetus-luhamaa-tallinna/",
+    et: "/et/transfeer-luhamaa-tallinn/",
+  },
   "tartu-koidula-luhamaa": { ru: "/transfer-tartu-koidula-luhamaa/" },
   "spb-ivangorod": { ru: "/transfer-spb-ivangorod/" },
   "finland-russia": { ru: "/transfer-finlyandiya-rossiya/" },

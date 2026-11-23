@@ -313,6 +313,10 @@
   https://ridego.ee/et/transfeer-tallinn-koidula/ — Tallinn — Koidula, 160 € (25.10.2026)
 - https://ridego.ee/en/transfer-koidula-tallinn/, https://ridego.ee/fi/kuljetus-koidula-tallinna/,
   https://ridego.ee/et/transfeer-koidula-tallinn/ — Koidula — Tallinn, 160 € (25.10.2026)
+- https://ridego.ee/en/transfer-tallinn-luhamaa/, https://ridego.ee/fi/kuljetus-tallinna-luhamaa/,
+  https://ridego.ee/et/transfeer-tallinn-luhamaa/ — Tallinn — Luhamaa, 160 € (23.11.2026)
+- https://ridego.ee/en/transfer-luhamaa-tallinn/, https://ridego.ee/fi/kuljetus-luhamaa-tallinna/,
+  https://ridego.ee/et/transfeer-luhamaa-tallinn/ — Luhamaa — Tallinn, 160 € (23.11.2026)
 
 ## 11. Контакты
 
